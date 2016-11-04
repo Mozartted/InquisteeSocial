@@ -26,7 +26,6 @@ Route::post('/',['as'=>'registration_path','uses'=>'RegistrationController@store
 |--------------------------------------------------------------------------
 | Session Routes
 |--------------------------------------------------------------------------
-|
 | These routes deal with sessions basically logins and logouts with
 | using session controller
 |

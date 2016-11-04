@@ -18,21 +18,4 @@ class EloquentUserRepository implements UserRepository
         return $leaders;
 
     }
-
-
-
-    public function findManyById(array $ids)
-    {
-        /*
-        |--------------------------------------------------------------------------
-        | Session Routes
-        |--------------------------------------------------------------------------
-        |
-        | These routes deal with sessions basically logins and logouts with
-        | using session controller
-        |
-        */
-
-
-    }
 }

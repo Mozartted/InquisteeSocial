@@ -69,5 +69,18 @@ class User extends Model implements AuthenticatableContract,CanResetPasswordCont
         return $this->hasMany('App\Models\Interest','subject');
     }
 
+    /*
+    |----------------------------------------------------------------
+    | Static Registration function
+    |________________________________________________________________
+    |
+    | All code associated with registering a new user
+    |
+    */
+    public static function register($firstname, $lastname, $email, $password, $gender, $birthday, $profileimage)
+    {
+
+        return $user;
+    }
 
 }

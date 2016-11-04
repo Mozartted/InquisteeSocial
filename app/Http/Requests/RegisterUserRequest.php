@@ -37,7 +37,6 @@ class RegisterUserRequest extends FormRequest
             'month'					=>	'required|numeric|between:01,12',
             'day'					=>	'required|numeric|between:01,31',
             'year'					=>	'required|numeric|before:'.date('Y', $timestamp),
-            'profileimage'			=>	'required|image|mimes:jpeg,jpg,bmp,png,gif'
         ];
     }
 
