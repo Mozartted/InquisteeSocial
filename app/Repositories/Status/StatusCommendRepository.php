@@ -26,7 +26,5 @@ interface StatusRepository
 {
     public function getStatusAndCommendsLeaderUser(User $id);
     public function getStatusAndCommendsUser(User $user);
-    public function getStatusByIdWIthLikeVote();
-
 
 }

@@ -9,7 +9,6 @@
 namespace app\Repositories\Status;
 use App\Models\Commend;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use App\Models\Status;
     /*
     |--------------------------------------------------------------------------
@@ -63,11 +62,6 @@ class EloquentStatusRepository implements StatusRepository
           'status'=>$StatusCollection,
             'commends'=>$CommendsCollection
         ];
-    }
-
-    public function getStatusByIdWIthLikeVote()
-    {
-        // TODO: Implement getStatusByIdWIthLikeVote() method.
     }
 
 
