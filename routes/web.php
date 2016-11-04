@@ -66,6 +66,7 @@ Route::group(['prefix'=>'settings','middleware'=>'auth'],function(){
     Route::put('/emails',['as'=>'settings_path_emails','uses'=>'SettingsController@EmailNotificationUpdate']);
     Route::put('/account/deactivation',['as'=>'settings_path_deactivation','uses'=>'SettingsController@deactivation']);
 
+
 });
 
 /*
@@ -130,6 +131,9 @@ Route::group(['prefix'=>'ajax','middleware'=>'auth'], function(){
     |
     */
     Route::put('/vote/{status}',['as'=>'vote_path','uses'=>'VoteController@create']);
+
+    //this section is a json response route for the commend functionality
+    Route::put('/commend/{status}',['as'=>'commend','uses'=>'StatusFeedController@commend']);
 
     /*
     |--------------------------------------------------------------------------

@@ -6,7 +6,7 @@
  * Time: 3:45 PM
  */
 
-namespace app\Repositories\Status;
+namespace App\Repositories\Status;
 use App\Models\Commend;
 use App\Models\User;
 use App\Models\Status;
@@ -23,7 +23,7 @@ use App\Models\Status;
     |
     */
 
-class EloquentStatusRepository implements StatusRepository
+class EloquentStatusCommendRepository implements StatusRepository
 {
     private $user;
 
@@ -61,6 +61,26 @@ class EloquentStatusRepository implements StatusRepository
         return [
           'status'=>$StatusCollection,
             'commends'=>$CommendsCollection
+        ];
+    }
+
+    public function getStatusAndCommendsLeaderUserAjax(User $user, $skipQty)
+    {
+        // TODO: Implement getStatusAndCommendsLeaderUser() method.
+        // gets the status and commends of a particular user and his
+        // leaders ordered according to timestamps.
+        $leaderUserIds=$user->leaders->pluck('leaders');
+        $leaderUserIds[]=$user->id;
+        $CommendsCollection=Commend::whereIn('user_id',$leaderUserIds);
+
+        //getting the status id of the commends
+        $statusIdFromCommends=$CommendsCollection->pluck('status_id');
+        $StatusCollection=Status::whereIn('user_id',$leaderUserIds)->union(Status::whereIn('status_id',$statusIdFromCommends))->latest()->skip($skipQty)->take(10);
+
+
+        return [
+            'Commends'=>$CommendsCollection,
+            'Status'=>$StatusCollection,
         ];
     }
 

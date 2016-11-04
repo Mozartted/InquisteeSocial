@@ -36,12 +36,14 @@ class RegistrationController extends Controller
 
         $newUserBirthday = Carbon::createFromDate($request->year, $request->month, $request->day);
 
-
         //registering a new user
-        $newUser=$this->dispatch(CreateUserJob::class,$request,[
-            'birthday'=> $newUserBirthday,
-            'profileImagePath'=> $newUserProfileImagePath
-        ]);
+        $newUser=$this->dispatch(new CreateUserJob($request->all() + [
+                'birthday'=> $newUserBirthday,
+                'profileImagePath'=> $newUserProfileImagePath,
+            ]));
+
+
+        return redirect()->route('feeds_path');
 
     }
 }

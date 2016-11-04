@@ -29,27 +29,16 @@ class CreateUserJob implements ShouldQueue
     protected $profileImagePath;
     protected $birthday;
 
-    public function __construct(
-        $firstname,
-        $lastname,
-        $email,
-        $username,
-        $password,
-        $password_confirmation,
-        $gender,
-        $profileImagePath,
-        $birthday
-    )
+    public function __construct($request)
     {
-        $this->firstname=$firstname;
-        $this->lastname=$lastname;
-        $this->email=$email;
-        $this->password=bcrypt($this->password);
-        $this->profileImagePath = $profileImagePath;
-		$this->birthday = $birthday;
-        $this->profileImagePath=$profileImagePath;
-        $this->gender=$gender;
-        $this->username=$username;
+        $this->firstname=$request->firstname;
+        $this->lastname=$request->lastname;
+        $this->email=$request->email;
+        $this->password=bcrypt($request->password);
+        $this->profileImagePath = $request->profileImagePath;
+		$this->birthday = $request->birthday;
+        $this->gender=$request->gender;
+        $this->username=$request->username;
     }
 
     /**

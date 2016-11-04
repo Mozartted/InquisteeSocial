@@ -6,7 +6,7 @@
  * Time: 10:14 PM
  */
 
-namespace app\Services;
+namespace App\Services;
 
 use Image;
 
@@ -18,9 +18,9 @@ class ProcessImage
     |----------------------------------------------------------
     |
     | The Function of this class is to process the images and
-    | save them with little or no hassels, Joseph is going
+    | save them with little or no hassles, Joseph is going
     | to be really shocked about this when he see's it
-    | am a boss. The guy in the cpde, that sounds
+    | am a boss. The guy in the code, that sounds
     | cool. yea..
     |
     */
@@ -29,7 +29,24 @@ class ProcessImage
     {
         $filename = $this->rename($file);
         Image::make($file)->resize($width, $height)->save($path.$filename);
-        return 'images/profileimages/'.$filename;
+        return $path.$filename;
+    }
+
+
+    public function saveStatus($file, $path="images/status/"){
+        $filename = $this->rename($file);
+        Image::make($file)->save($path.$filename);
+        return $path.$filename;
+    }
+
+    public function saveCoverPic($file, $path="images/status/",$width,$height){
+        $filename = $this->rename($file);
+        Image::make($file)->resize($width, $height)->save($path.$filename);
+        return $path.$filename;
+    }
+
+    public function getExtension($file){
+        return Image::make($file)->mime();
     }
 
     

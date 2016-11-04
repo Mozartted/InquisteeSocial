@@ -18,7 +18,11 @@ class Status extends Model
         return $this->hasMany('App\Models\Love','status_id');
     }
 
-    public function medias(){
+    public function media(){
         return $this->belongsToMany('App\Models\Media','status_media','status_id','media_id');
+    }
+
+    public function commends(){
+        return $this->hasMany('App\Models\Commend','status_id');
     }
 }

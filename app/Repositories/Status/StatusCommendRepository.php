@@ -6,7 +6,7 @@
  * Time: 3:43 PM
  */
 
-namespace app\Repositories\Status;
+namespace App\Repositories\Status;
 use App\Models\User;
 
     /*
@@ -22,9 +22,10 @@ use App\Models\User;
     |
     */
 
-interface StatusRepository
+interface StatusCommendRepository
 {
     public function getStatusAndCommendsLeaderUser(User $id);
     public function getStatusAndCommendsUser(User $user);
+    public function getStatusAndCommendsLeaderUserAjax(User $id,$skipQty);
 
 }
