@@ -118,7 +118,7 @@ Route::group(['prefix'=>'ajax','middleware'=>'auth'], function(){
     | using a common namespace for all Ajax Operations, json response
     |
     */
-    Route::put('/like/{status}',['as'=>'like_path','uses'=>'LikeController@create']);
+    Route::put('/love/{status}',['as'=>'love_path','uses'=>'StatusFeedController@love']);
     Route::put('/message/',['as'=>'message_path','uses'=>'MessageController@create']);
 
     /*
@@ -143,7 +143,7 @@ Route::group(['prefix'=>'ajax','middleware'=>'auth'], function(){
     | Performs the search request and responds in JSON
     |
     */
-    Route::post('/search/{search}',['as'=>'search_path','uses'=>'SearchController@search']);
+    Route::post('/search/',['as'=>'search_path','uses'=>'SearchController@search']);
 
     /*
     |--------------------------------------------------------------------------

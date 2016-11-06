@@ -1,10 +1,7 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 
@@ -12,9 +9,9 @@ use Illuminate\Notifications\Notifiable;
  * Class User
  * @package App
  */
-class User extends Model implements AuthenticatableContract,CanResetPasswordContract
+class User extends Authenticatable
 {
-    use Authenticatable, CanResetPassword, Notifiable;
+    use Notifiable
     /**
      * The attributes that are mass assignable.
      *
@@ -77,10 +74,6 @@ class User extends Model implements AuthenticatableContract,CanResetPasswordCont
     | All code associated with registering a new user
     |
     */
-    public static function register($firstname, $lastname, $email, $password, $gender, $birthday, $profileimage)
-    {
 
-        return $user;
-    }
 
 }

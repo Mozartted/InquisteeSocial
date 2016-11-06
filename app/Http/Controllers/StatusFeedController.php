@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\CreateStatusRequest;
 use App\Jobs\CreateStatusJob;
+use App\Models\Love;
 use App\Repositories\Status\StatusCommendRepository;
 use Illuminate\Support\Facades\Request;
 use App\Models\Status;
@@ -67,6 +68,37 @@ class StatusFeedController extends Controller
 
         return response()->json(
             ['commend_count'=>count(Commend::where('status_id',$id->id))]
+        );
+
+
+    }
+
+    public function love(Status $status){
+        /*
+        |----------------------------------------------------
+        | Making a Commend
+        |----------------------------------------------------
+        | This methods make a commend by taking in id of the
+        | Status and making a model of it, Instantiating a
+        | the Status Model to have the Commend with the
+        | user name and status id.
+        |
+        |----------------------------------------------------
+        | Note: the commend action would fire a notification
+        |       event that's going to be responded to by
+        |       adding the notification to database.
+        |
+        */
+        $status->loves()->create(
+            [
+                'user_id'=>Auth::user()->id,
+                'status_id'=>$status->id,
+            ]);
+
+        return response()->json(
+            ['love_count'=>count(Love::where('status_id',$status->id)),
+            'userLove'=>true,
+            ]
         );
 
 
