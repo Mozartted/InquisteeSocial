@@ -20,8 +20,7 @@ class StatusCreated implements  ShouldBroadcast
      * @return void
      */
 
-
-    protected $status;
+    public $status;
     public function __construct(Status $status)
     {
         $this->status=$status;

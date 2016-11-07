@@ -26,6 +26,7 @@ class StatusCreatedListener
      */
     public function handle(StatusCreated $event)
     {
-        //
+        // when a new status is being created, i'd want to do nothing for now.
+
     }
 }
