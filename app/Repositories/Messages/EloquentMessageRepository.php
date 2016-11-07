@@ -11,6 +11,7 @@ namespace App\Repositories\Messages;
 use App\Models\Message;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class EloquentMessageRepository implements MessageRepository
@@ -59,7 +60,7 @@ class EloquentMessageRepository implements MessageRepository
     public function getMessagesForParticularResponder(User $responder){
         //get all messages where this user is either the sender or the receiver
         $AllMessages=Message::where('sender','=',Auth::user()->id)->orWhere('receiver','=',Auth::user()->id);
-        $messagesUser=$AllMessages->where('sender','=',$idHolder)->orWhere('receiver','=',$idHolder)->orderBy('created_at', 'desc');
+        $messagesUser=$AllMessages->where('sender','=',$responder->id)->orWhere('receiver','=',$responder->id)->orderBy('created_at', 'desc');
 
         return $messagesUser;
 

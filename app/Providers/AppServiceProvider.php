@@ -50,6 +50,11 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\User\EloquentStatusCommendRepository'
         );
 
+        $this->app->bind(
+            'App\Repositories\User\MessageRepository',
+            'App\Repositories\User\EloquentMessageRepository'
+        );
+
     }
 
 

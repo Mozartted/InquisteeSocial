@@ -18,4 +18,6 @@ class EloquentUserRepository implements UserRepository
         return $leaders;
 
     }
+
+    
 }

@@ -119,7 +119,7 @@ Route::group(['prefix'=>'ajax','middleware'=>'auth'], function(){
     |
     */
     Route::put('/love/{status}',['as'=>'love_path','uses'=>'StatusFeedController@love']);
-    Route::put('/message/',['as'=>'message_path','uses'=>'MessageController@create']);
+    Route::put('/message/{user}',['as'=>'message_path','uses'=>'MessageController@create']);
 
     /*
     |--------------------------------------------------------------------------
@@ -130,7 +130,7 @@ Route::group(['prefix'=>'ajax','middleware'=>'auth'], function(){
     | using a common prefix for all Ajax Operations, json response
     |
     */
-    Route::put('/vote/{status}',['as'=>'vote_path','uses'=>'VoteController@create']);
+    Route::put('/vote/{status}',['as'=>'vote_path','uses'=>'StatusFeedController@vote']);
 
     //this section is a json response route for the commend functionality
     Route::put('/commend/{status}',['as'=>'commend','uses'=>'StatusFeedController@commend']);
@@ -171,4 +171,3 @@ Route::group(['prefix'=>'ajax','middleware'=>'auth'], function(){
 */
 Route::get('/{user}',['as'=>'user_profile_path','middleware'=>'auth','uses'=>'UserController@show']);
 Route::get('/{user}/edit',['as'=>'user_profile_edit','middleware'=>'auth','uses'=>'UserController@edit']);
-Route::put('/{user}/edit',['as'=>'user_profile_edit','middleware'=>'auth','uses'=>'UserController@update']);

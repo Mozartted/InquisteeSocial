@@ -10,18 +10,20 @@ namespace App\Repositories\Status;
 use App\Models\Commend;
 use App\Models\User;
 use App\Models\Status;
-    /*
-    |--------------------------------------------------------------------------
-    | The Status Repository
-    |--------------------------------------------------------------------------
-    |
-    | This Eloquent status repository would implement methods to retrieve all
-    | status and commends of a user and his leaders, in his feeds panel,
-    | also retrieves a users own feeds and commends alone, and also
-    | obtaining a single status by its ID with the no of likes
-    | and Votes, also posting a status and commending a status
-    |
-    */
+use Illuminate\Http\Request;
+
+/*
+|--------------------------------------------------------------------------
+| The Status Repository
+|--------------------------------------------------------------------------
+|
+| This Eloquent status repository would implement methods to retrieve all
+| status and commends of a user and his leaders, in his feeds panel,
+| also retrieves a users own feeds and commends alone, and also
+| obtaining a single status by its ID with the no of likes
+| and Votes, also posting a status and commending a status
+|
+*/
 
 class EloquentStatusCommendRepository implements StatusRepository
 {
@@ -82,6 +84,21 @@ class EloquentStatusCommendRepository implements StatusRepository
             'Commends'=>$CommendsCollection,
             'Status'=>$StatusCollection,
         ];
+    }
+
+    public function searchStatusAll(Request $request){
+        //here all status would be searched for the values in the
+        //request sections
+
+        //the conditions
+
+        $whereTextIsLikeParameter=[
+            ['status_text','=',$request->data],
+            ['status_text','like','%' .$request->data.'%']
+        ];
+
+        $status=Status::where($whereTextIsLikeParameter)->get();
+
     }
 
 

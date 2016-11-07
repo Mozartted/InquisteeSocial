@@ -25,4 +25,8 @@ class Status extends Model
     public function commends(){
         return $this->hasMany('App\Models\Commend','status_id');
     }
+
+    public function votes(){
+        return $this->hasMany('App\Models\Vote','user_id');
+    }
 }
