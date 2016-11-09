@@ -7,12 +7,11 @@
  */
 
 namespace App\Repositories\Profiles;
-
-
+use App\Models\User;
 use Illuminate\Http\Request;
 
 interface ProfilesRepository
 {
     public function searchProfilesAll(Request $request);
-
+    public function getUserProfile(User $user);
 }
