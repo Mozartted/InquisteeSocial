@@ -110,5 +110,39 @@ class UserController extends Controller
 
     }
 
+    public function follow(User $user){
+        //create a following relationship between a the Auth user and another user_id
+        $userMe=Auth::user();
+        $userMe->leaders()->save($user);
+
+        return response()->json(true);
+    }
+
+    public function unfollow(User $user){
+        //destroying the relationship between Auth and his leader
+        $userMe=Auth::user();
+        $badLeader=$userMe->leader()->where('leader',$user->id);
+        $badLeader->forceDelete();
+
+        return response()->json(true);
+    }
+
+    public function interested(User $user){
+        //create an interest relationship between a the Auth user and another user_id
+        $userMe=Auth::user();
+        $userMe->interestedIn()->save($user);
+
+        return response()->json(true);
+    }
+
+    public function uninterested(){
+        //destroying the relationship between Auth and his leader
+        $userMe=Auth::user();
+        $unResponsiveBoyOrGirl=$userMe->interestedIn()->where('subject',$user->id);
+        $unResponsiveBoyOrGirl->forceDelete();
+
+        return response()->json(true);
+    }
+
 
 }

@@ -121,6 +121,11 @@ Route::group(['prefix'=>'ajax','middleware'=>'auth'], function(){
     Route::put('/love/{status}',['as'=>'love_path','uses'=>'StatusFeedController@love']);
     Route::put('/message/{user}',['as'=>'message_path','uses'=>'MessageController@create']);
 
+    Route::put('/follow/{user}',['as'=>'following','uses'=>'UserController@follow']);
+    Route::put('/interested/{user}',['as'=>'interested','uses'=>'UserController@interested']);
+    Route::put('/unfollow/{user}',['as'=>'unfollowing','uses'=>'UserController@unfollow']);
+    Route::put('/uninterested/{user}',['as'=>'uninterested','uses'=>'UserController@uninterested']);
+
     /*
     |--------------------------------------------------------------------------
     | Like Operations Routes (JSON Response)
@@ -153,7 +158,7 @@ Route::group(['prefix'=>'ajax','middleware'=>'auth'], function(){
     | answering the question, never been easier.
     |
     */
-    Route::post('/question/{question}',['as'=>'question_answer','uses'=>'QuestionController@answering']);
+    Route::post('/question/{question}',['as'=>'question_answer','uses'=>'QuestionControlle@answering']);
 
 });
 
