@@ -66,7 +66,8 @@ class StatusFeedController extends Controller
             [
                 'commend'=>$request['commend'],
                 'user_id'=>Auth::user()->id,
-            ]);
+            ]
+        );
 
         return response()->json(
             ['commend_count'=>count(Commend::where('status_id',$id->id))]
