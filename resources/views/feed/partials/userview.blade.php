@@ -12,7 +12,9 @@
 <div>
     <ul class="collapsible " data-collapsible="accordion">
         <li>
-            <div class="collapsible-header truncate"><span class="new badge">19</span>Answered your relationship question</div>
+            <div class="collapsible-header truncate">
+                <span class="new badge">19</span>Answered your relationship question
+            </div>
             <div class="collapsible-body">
                 <div class="collection-item">
                     Mozart thinks you are single
@@ -29,14 +31,54 @@
             </div>
         </li>
         <li>
-            <div class="collapsible-header truncate "><span class="new badge">19</span>Interested In You</div>
+            <div class="collapsible-header truncate ">
+                <span class="new badge">19</span>Interested In You
+            </div>
             <div class="collapsible-body">
-                
+                <div class="collection">
+                    <div class="collection-item avatar">
+                        <img src="images/profile/myAvatar.png" class="circle">
+                            <span>@Mozart</span> interested in you
+                    </div>
+                    <div class="collection-item avatar">
+                        <img src="images/profile/myAvatar.png" class="circle">
+                        <span>@Mozart</span> interested in you
+                    </div>
+                    <div class="collection-item avatar">
+                        <img src="images/profile/myAvatar.png" class="circle">
+                        <span>@Mozart</span> interested in you
+                    </div>
+                    <div class="collection-item avatar">
+                        <img src="images/profile/myAvatar.png" class="circle">
+                        <span>@Mozart</span> interested in you
+                    </div>
+                </div>
             </div>
         </li>
         <li>
-            <div class="collapsible-header truncate"><span class="new badge">19</span>Following You</div>
-            <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+            <div class="collapsible-header truncate">
+                <span class="new badge">19</span>Following You
+            </div>
+            <div class="collapsible-body">
+                <div class="collection">
+                    <div class="collection-item avatar">
+                        <img src="images/profile/myAvatar.png" class="circle">
+                        <span>@Mozart</span> Followed You
+                    </div>
+                    <div class="collection-item avatar">
+                        <img src="images/profile/myAvatar.png" class="circle">
+                        <span>@Mozart</span> Followed You
+                    </div>
+                    <div class="collection-item avatar">
+                        <img src="images/profile/myAvatar.png" class="circle">
+                        <span>@Mozart</span> Followed You
+                    </div>
+                    <div class="collection-item avatar">
+                        <img src="images/profile/myAvatar.png" class="circle">
+                        <span>@Mozart</span> Followed You
+                    </div>
+                </div>
+            </div>
         </li>
     </ul>
 </div>
