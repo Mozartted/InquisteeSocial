@@ -1,0 +1,352 @@
+.padding-5{
+    padding:5px;
+}
+
+.log-section{
+    width:150px;
+}
+
+
+.log-image >div> img{
+    width: 30px;
+    height:30px;
+}
+
+.padding-min-5{
+    padding:-5px;
+}
+
+.padding-10{
+    padding:10px;
+}
+
+.padding-min-10{
+    padding:-10px;
+}
+
+.username-text{
+    font-weight: 600;
+    color:#BDBDBD;
+    font-size: 13px;
+}
+
+.main-side{
+
+    color:#ffffff;
+    padding:10px;
+    height: 700px;
+}
+
+.cover-row{
+    height:200px;
+    width:100%
+}
+
+.main-row{
+    display: flex;
+}
+
+.status-img{
+    width:100%;
+    height:auto;
+}
+
+.profile-img{
+    width:300px;
+    height:300px;
+}
+
+.status-text{
+    font-size: 15px;
+}
+
+/*minus margins*/
+.margin-min-5{
+    margin:-5px;
+}
+
+.margin-min-10{
+    margin:-10px;
+}
+
+.margin-min-20{
+    margin:-20px;
+}
+
+
+.background-main{
+    background: url('../images/forest-patrol.jpg') center / cover no-repeat;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+.screen-center{
+    margin:auto;
+    margin-top: 100px;
+}
+
+
+.mid-size{
+    width:500px
+}
+
+.mid-panel{
+    height: 50px;
+}
+
+.margining-2{
+    margin: 3px;
+}
+
+.card-header {
+  overflow: hidden;
+  width: 100%;
+  max-height: 200px;
+}
+
+.rowed{
+    margin: -10px;
+}
+
+@media screen only and (max-width:500px){
+    .mid-size{
+        width:100%;
+    }
+}
+
+.md-18{
+    font-size: 18px;
+}
+
+.md-24{
+    font-size: 24px;
+}
+
+.sections{
+    width:100%;
+    overflow: hidden;
+}
+
+.profile-title{
+    font-size: 2rem;
+    font-weight: 200;
+    color:#BDBDBD;
+}
+
+.profile-title-bold{
+    font-size: 2rem;
+    font-weight: 600;
+    color:#202020;
+}
+
+.profile-info{
+    font-size: 1.2rem;
+    color:#303030;
+}
+
+.profile-info-text{
+    font-size: 1rem;
+    color:#303030;
+}
+
+.profile-information{
+    color:#716f6f;
+}
+
+.profile-information-bold{
+    color:#303030;
+    font-weight: bold;
+}
+
+.min-margin{
+    margin-bottom:-5px;
+}
+
+.feed-img{
+    width: 100px;
+}
+
+.feed-img-status{
+    width:30px;
+    height: auto;
+}
+
+
+/*The menu horizontal bar and its contents*/
+.profile-menu{
+    border-right: #3d3d3d solid 1px;
+}
+
+.profile-menu-icon{
+    font-weight: 600;
+    font-size: 12px;
+    color:#E53935
+}
+
+.story{
+    margin-bottom:12px;
+}
+
+.tab .active{
+    border-bottom: #e53935 solid 3px;
+
+}
+
+.text-size-2{
+    font-size: 12px;
+}
+
+.text-size-3{
+    font-size: 15px;
+}
+
+.bold-text{
+    font-weight: 600;
+}
+
+/**Stylesheet for the grid masonary layout**/
+#test1 > div{
+    margin:0px
+}
+
+.top-card-border-red{
+    border-top: #ed1c34 solid 3px;
+}
+
+.top-card-border-yellow{
+    border-top: #ffeb3b solid 3px;
+}
+
+.top-card-border-blue{
+    border-top: #1976D2 solid 3px;
+}
+
+.small-card{
+    width:50px;
+    height: 100px;
+    margin: 0.5px;
+}
+
+/**Setting vertical tabs settings*/
+.setting_menu{
+    display: block;
+    list-style-type: none;
+
+}
+
+.setting_menu > li{
+
+}
+
+.setting_menu >li.active{
+    border-left:#ed1c34 solid 3px;
+}
+
+.header-title {
+    display: block;
+    padding: 15px;
+    background: #ffffff;
+    border: #e3e3e3 1px solid;
+    color: #e3e3e3;
+}
+
+.color-grey {
+    color: #5a5a5a;
+}
+.header_medium {
+    font-size: 15pt;
+}
+
+.color-grey {
+    color: #5a5a5a;
+}
+
+.nav-notifying{
+    min-width: 80px;
+}
+
+.medium-avatar{
+    width:30px;
+    height: 30px;
+}
+
+.images > div{
+    float: left;
+    margin: 3px;
+}
+
+.tab-content.active{
+    display: block;
+    max-height: 300px;
+    min-height: 300px;
+}
+
+.tab-content{
+    display: none
+}
+
+.message > p{
+    font-size:12px;
+    color:#3d3d3d;
+    font-weight: lighter;
+}
+
+.message {
+    padding:12px;
+}
+
+
+.message-head{
+    font-weight: bold;
+}
+
+//test
+
+input[type="number"],
+input[type="text"] {
+    border: 1px solid #aaa;
+    padding: 5px;
+    font-size: 18px;
+    width: 100px;
+}
+
+button,
+a.btn {
+    background-color: #189094;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    text-shadow: none;
+    display: inline-block;
+    cursor: pointer;
+}
+input[type="file"] {
+    cursor: pointer;
+}
+button:focus {
+    outline: 0;
+}
+
+.file-btn {
+    position: relative;
+}
+.file-btn input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
