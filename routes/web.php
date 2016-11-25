@@ -18,8 +18,9 @@
 | These routes provide are for the registration_path for a new user
 |
 */
-Route::get('/',['as'=>'registration_path','uses'=>'RegistrationController@create']);
+Route::get('/',['as'=>'registration_path','uses'=>'RegistrationController@index']);
 Route::post('/',['as'=>'registration_path','uses'=>'RegistrationController@store']);
+Route::get('steps-register',['as'=>'register-steps','middleware'=>'auth','uses'=>'RegistrationController@steps']);
 
 
 /*

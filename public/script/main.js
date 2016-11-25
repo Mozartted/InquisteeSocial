@@ -1,5 +1,7 @@
 $( document ).ready(function(){
 
+    $('select').material_select();
+
     $(".dropdown-button").dropdown();
 
     $('.datepicker').pickadate({
@@ -81,7 +83,4 @@ $( document ).ready(function(){
 				});
 			});
 		});
-
-
-
 })
