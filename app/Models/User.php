@@ -11,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use Notifiable
+    use Notifiable;
     /**
      * The attributes that are mass assignable.
      *
@@ -31,7 +31,7 @@ class User extends Authenticatable
     ];
 
     public function profile(){
-        return $this->hasOne('App\Models\Profile');
+        return $this->hasOne('App\Models\Profile','users_id');
     }
 
     public function status(){

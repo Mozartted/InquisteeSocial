@@ -13,7 +13,7 @@ class RegisterUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -30,10 +30,10 @@ class RegisterUserRequest extends FormRequest
             'firstname'				=>	'required|min:2|alpha',
             'lastname'				=>	'required|min:2|alpha',
             'email'					=> 	'required|email|unique:users',
-            'username'              =>  'required|alpha|numeric|unique:users',
+            'username'              =>  'required|alpha|alpha_num|unique:users',
             'password'				=>	'required|confirmed|between:4,12',
             'password_confirmation'	=> 	'required',
-            'gender'				=>	'required|alpha|size:1',
+            'gender'				=>	'required|alpha',
             'month'					=>	'required|numeric|between:01,12',
             'day'					=>	'required|numeric|between:01,31',
             'year'					=>	'required|numeric|before:'.date('Y', $timestamp),
@@ -43,8 +43,16 @@ class RegisterUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'firstname'=>'First name must be alphabets please',
-            'lastname'=>'last name must be alphabets only',
+            'firstname'				=>	'Please enter your firstname alphabetically',
+            'lastname'				=>	'Please enter your lastname alphabetically',
+            'email'					=> 	'Please enter your email alpha-numerically',
+            'username'              =>  'Please enter your username',
+            'password'				=>	'Please enter your pasword',
+            'password_confirmation'	=> 	'Please confirm your password again',
+            'gender'				=>	'Please enter your gender approiately',
+            'month'					=>	'Select a month of birth',
+            'day'					=>	'Select a day of birth',
+            'year'					=>	'Select a year of birth',
         ];
     }
 

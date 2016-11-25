@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Http\Requests\RegisterUserRequest;
 use App\Jobs\CreateUserJob;
 use Carbon\Carbon;
+use Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,18 +34,44 @@ class RegistrationController extends Controller
 
     public function store(RegisterUserRequest $request){
 
-        $newUserProfileImagePath = $profileImagePath = App::make('ProcessImage')->execute($request->file('profileimage'), 'images/profileimages/', 180, 180);
-
-        $newUserBirthday = Carbon::createFromDate($request->year, $request->month, $request->day);
-
+        //$newUserProfileImagePath = $profileImagePath = App::make('ProcessImage')->execute($request->file('profileimage'), 'images/profileimages/', 180, 180);
+        $newUserBirthday =Carbon::createFromDate($request->year, $request->month, $request->day);
         //registering a new user
-        $newUser=$this->dispatch(new CreateUserJob($request->all() + [
-                'birthday'=> $newUserBirthday,
-                'profileImagePath'=> $newUserProfileImagePath,
-            ]));
+
+        /*
+        $this->dispatch(new CreateUserJob($request->all() + [
+                'birthday'=> $newUserBirthday,                //'profileImagePath'=> $newUserProfileImagePath,
+            ]
+        ));
+         *
+         */
+
+        $user =new User([
+            'username'=>$request->username,
+            'email'=>$request->email,
+            'password'=>$request->password,
+        ]);
+
+        $user->save();
+
+        $profile=new \App\Models\Profile(
+            ['birthday'=>$newUserBirthday,
+                'first_name'=>$request->firstname,
+                'last_name'=>$request->lastname,
+                'gender'=>$request->gender,
+            ]
+        );
+
+        $user->profile()->save($profile);
+
+        Auth::login($user);
+
+        return redirect()->route('register-steps');
 
 
-        return redirect()->route('feeds_path');
+    }
 
+    public function steps(){
+        return view('registration.regsteps');
     }
 }

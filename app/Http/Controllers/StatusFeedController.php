@@ -10,6 +10,7 @@ use App\Repositories\Status\StatusCommendRepository;
 use Illuminate\Support\Facades\Request;
 use App\Models\Status;
 use App\Models\Commend;
+use Auth;
 
 class StatusFeedController extends Controller
 {
@@ -28,7 +29,8 @@ class StatusFeedController extends Controller
 
     public function index(StatusCommendRepository $statusStuff){
         $statusThighs=$statusStuff->getStatusAndCommendsLeaderUser(Auth::user());
-        return view('',['status'=>$statusThighs['Status'],'commends'=>$statusThighs['Commends']]);
+        //['status'=>$statusThighs['Status'],'commends'=>$statusThighs['Commends']]
+        return view('feed.index');
 
     }
 

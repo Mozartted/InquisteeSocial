@@ -25,7 +25,7 @@ use Illuminate\Http\Request;
 |
 */
 
-class EloquentStatusCommendRepository implements StatusRepository
+class EloquentStatusCommendRepository implements StatusCommendRepository
 {
     private $user;
 
