@@ -46,8 +46,8 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            'App\Repositories\User\StatusCommendRepository',
-            'App\Repositories\User\EloquentStatusCommendRepository'
+            'App\Repositories\Status\StatusCommendRepository',
+            'App\Repositories\Status\EloquentStatusCommendRepository'
         );
 
         $this->app->bind(
