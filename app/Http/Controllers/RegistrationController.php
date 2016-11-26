@@ -34,6 +34,10 @@ class RegistrationController extends Controller
 
     public function store(RegisterUserRequest $request){
 
+        if(Auth::check()){
+
+        }
+
         //$newUserProfileImagePath = $profileImagePath = App::make('ProcessImage')->execute($request->file('profileimage'), 'images/profileimages/', 180, 180);
         $newUserBirthday =Carbon::createFromDate($request->year, $request->month, $request->day);
         //registering a new user
@@ -49,7 +53,7 @@ class RegistrationController extends Controller
         $user =new User([
             'username'=>$request->username,
             'email'=>$request->email,
-            'password'=>$request->password,
+            'password'=>bcrypt($request->password),
         ]);
 
         $user->save();
@@ -72,6 +76,6 @@ class RegistrationController extends Controller
     }
 
     public function steps(){
-        return view('registration.regsteps');
+        return view('registration.regsteps',['no_app'=>true]);
     }
 }
