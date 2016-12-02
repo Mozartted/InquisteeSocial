@@ -44,27 +44,6 @@ class CreateStatusJob implements ShouldQueue
      */
     public function handle()
     {
-        $status=new Status(
-            [
-                'user_id'=>$this->User,
-                'status_text'=>$this->status_text,
-            ]
-        );
 
-        $urlAndExtension=array();
-
-        foreach($this->imageUploaded as $upload){
-            $urlAndExtension[]=[
-                'profile_id'=>$this->User->profile->id,
-                'url'=>(new ProcessImage())->saveStatus($upload,$path="images/status/"),
-                'type'=>(new ProcessImage())->getExtension($upload)
-            ];
-        }
-
-        $status->save();
-
-        $status->media()->saveMany(
-            $urlAndExtension
-        );
     }
 }

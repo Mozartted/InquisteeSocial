@@ -1,4 +1,10 @@
 <!--The Navigation bar of the app-->
+<ul id="dropdown1" class="dropdown-content">
+    <li><a href="#!">one</a></li>
+    <li><a href="#!">two</a></li>
+    <li class="divider"></li>
+    <li><a href="{{url('/logout')}}">Logout</a></li>
+</ul>
 <nav class="nav-wrapper">
 
         <div class="nav-wrapper red darken-1">
@@ -23,8 +29,13 @@
                                 </ul>
                                 <div class="log-section input-field right">
                                     <div class="log-image row">
-                                        <div class="col s2"><img class="circle" src="images/profile/myAvatar.png"/></div>
-                                        <div class="col s10 center-align"><span>Mozartted</span></div>
+                                        @if(empty(Auth::user()->profile->profileMedia->url))
+                                            <div class="col s2  dropdown-button" data-activates="dropdown1" ><img class="circle" src="{{asset('images/profile/myAvatar.png')}}"/></div>
+                                        @else
+                                            <div class="col s2  dropdown-button" data-activates="dropdown1"><img class="circle" src="{{asset(Auth::user()->profile->profileMedia->url)}}"/></div>
+                                        @endif
+
+                                        <div class="col s10 center-align"><span>{{Auth::user()->profile->first_name}}</span></div>
 
                                     </div>
                                 </div>
@@ -43,5 +54,3 @@
 
         </div>
   </nav>
-
-  

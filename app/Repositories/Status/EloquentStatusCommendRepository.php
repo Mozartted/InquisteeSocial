@@ -11,6 +11,7 @@ use App\Models\Commend;
 use App\Models\User;
 use App\Models\Status;
 use Illuminate\Http\Request;
+use DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,28 +42,26 @@ class EloquentStatusCommendRepository implements StatusCommendRepository
         // leaders ordered according to timestamps.
         $leaderUserIds=$user->leaders->pluck('leaders');
         $leaderUserIds[]=$user->id;
-        $CommendsCollection=Commend::whereIn('user_id',$leaderUserIds);
+        $CommendsCollection=Commend::whereIn('user_id',$leaderUserIds)->get();
         $statusIdFromCommends=$CommendsCollection->pluck('status_id');
-        $StatusCollection=Status::whereIn('user_id',$leaderUserIds)->union(Status::whereIn('status_id',$statusIdFromCommends))->latest()->take(10);
+        $StatusCollection=Status::whereIn('user_id',$leaderUserIds)->union(Status::whereIn('id',$statusIdFromCommends))->orderBy('id', 'desc')->take(10)->get();
 
+        return $all=['Status'=>$StatusCollection,'Commend'=>$statusIdFromCommends];
 
-        return [
-            'Commends'=>$CommendsCollection,
-            'Status'=>$StatusCollection,
-        ];
     }
 
     public function getStatusAndCommendsUser(User $user)
     {
         // TODO: Implement getStatusAndCommendsUser() method.
         $UserIds=$user->id;
-        $CommendsCollection=Commend::whereIn('user_id',$UserIds);
+        $CommendsCollection=Commend::where('user_id',$UserIds)->get();
         $statusIdFromCommends=$CommendsCollection->pluck('status_id');
-        $StatusCollection=Status::whereIn('user_id',$UserIds)->union(Status::whereIn('status_id',$statusIdFromCommends))->latest()->take(10);
+        $StatusCollection=Status::where('user_id',$UserIds)->
+        union(Status::whereIn('status_id',$statusIdFromCommends))->
+        orderBy('id', 'desc')->take(10)->get();
 
         return [
-          'status'=>$StatusCollection,
-            'commends'=>$CommendsCollection
+          'Status'=>$StatusCollection, 'Commends'=>$CommendsCollection
         ];
     }
 

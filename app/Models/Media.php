@@ -7,7 +7,6 @@ class Media extends Model
 {
 
     protected $fillable=[
-        'profiles_id',
         'type',
         'url'
     ];

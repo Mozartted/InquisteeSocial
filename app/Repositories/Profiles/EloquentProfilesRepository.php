@@ -40,23 +40,23 @@ class EloquentProfilesRepository implements ProfilesRepository
         return $users;
     }
 
-    public function getUserProfile(User $id){
+    public function getUserProfile(User $user){
         //get all information including likes for a current user
         //to facilitate the usage of the json form, we return the
         //data in an array.
-        $user=$id->profile;
+        $profile=$user->profile;
         $userInfo=[
-            'id'=>$id->id,
-            'username'=>$id->username,
-            'firstname'=>$user->firstname,
-            'lastname'=>$user->lastname,
-            'birthday'=>$user->birthday,
-            'likes_movies'=>$user->like,
-            'gender'=>$user->gender,
-            'cover_pic'=>$user->cover_pic,
-            'profile_pic'=>$user->profilePic,
-            'about'=>$user->about,
-            'joined'=>$user->created_at,
+            'id'=>$user->id,
+            'username'=>$user->username,
+            'firstname'=>$profile->first_name,
+            'lastname'=>$profile->last_name,
+            'birthday'=>$profile->birthday,
+            'likes_movies'=>$profile->like,
+            'gender'=>$profile->gender,
+            'cover_pic'=>$profile->cover_pic,
+            'profile_pic'=>$profile->profileMedia,
+            'about'=>$profile->about,
+            'joined'=>$profile->created_at,
         ];
 
 

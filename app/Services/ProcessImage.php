@@ -9,6 +9,7 @@
 namespace App\Services;
 
 use Image;
+use Faker\Factory as Faker;
 
 class ProcessImage
 {
@@ -25,11 +26,23 @@ class ProcessImage
     |
     */
 
-    public function saveProfile($file, $path="images/profileimages/", $width, $height)
+    public function saveProfile($file, $path="images/profileimages/")
     {
-        $filename = $this->rename($file);
-        Image::make($file)->resize($width, $height)->save($path.$filename);
+        $filename = $this->renameBase64($file);
+        Image::make($file)->save($path.$filename);
         return $path.$filename;
+    }
+
+    public function saveProfileAjax($data, $path="images/profileimages/"){
+        $filename = $this->renameBase64();
+
+
+        list($type, $data) = explode(';', $data);
+        list(, $data)      = explode(',', $data);
+        $data = base64_decode($data);
+
+        file_put_contents($path.$filename.'.png', $data);
+        return $path.$filename.'.png';
     }
 
 
@@ -46,10 +59,11 @@ class ProcessImage
     }
 
     public function getExtension($file){
-        return Image::make($file)->mime();
+        return exif_imagetype($file);
     }
 
-    
+
+
 
     public function rename($file)
     {
@@ -64,6 +78,15 @@ class ProcessImage
                 break;
             case IMAGETYPE_BMP : return $faker->sha1.'.bmp';
         }
+
+    }
+
+    public function renameBase64(){
+
+
+        $faker = Faker::create();
+
+        return $faker->sha1;
 
     }
 }

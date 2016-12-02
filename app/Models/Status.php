@@ -8,7 +8,7 @@ class Status extends Model
 {
     protected $fillable=['user_id','status_text'];
 
-    protected $table='status';
+    public $table='status';
 
     public function owner(){
         return $this->belongsTo('App\Models\User','user_id');

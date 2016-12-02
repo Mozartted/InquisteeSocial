@@ -55,6 +55,11 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\User\EloquentMessageRepository'
         );
 
+        $this->app->bind(
+            'App\Repositories\Profiles\ProfilesRepository',
+            'App\Repositories\Profiles\EloquentProfilesRepository'
+        );
+
     }
 
 

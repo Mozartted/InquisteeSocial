@@ -1,8 +1,9 @@
 $( document ).ready(function(){
 
+    $(".alert-danger").hide();
     $('select').material_select();
 
-    $(".dropdown-button").dropdown();
+    $(".dropdown-button").dropdown({ hover: false });
 
     $('.datepicker').pickadate({
      selectMonths: true, // Creates a dropdown to control month
@@ -30,7 +31,12 @@ $( document ).ready(function(){
 
 		$(this).addClass('active');
 		$("#"+tab_id).addClass('active');
-	})
+
+	});
+
+	$('.tab').click(function(){
+		$(".alert-danger").hide().html().remove();
+	});
 
     $('#postStatus').characterCounter();
 
@@ -59,7 +65,7 @@ $( document ).ready(function(){
 		    }
 		}
 
-		$uploadCrop = $('#upload-demo').croppie({
+		$uploadCrop = $('#upload-into').croppie({
 			viewport: {
 				width: 200,
 				height: 200,
@@ -76,11 +82,27 @@ $( document ).ready(function(){
 		$('.upload-result').on('click', function (ev) {
 			$uploadCrop.croppie('result', {
 				type: 'canvas',
-				size: 'viewport'
+				size: 'original'
 			}).then(function (resp) {
-				popupResult({
-					src: resp
-				});
+                $.ajaxSetup({
+                    headers: {
+                         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+				$.ajax(
+                    {
+                    url: 'steps-register/pic',
+    		        type: 'POST',
+    		        data: {'image':resp},
+                    dataType:'json',
+    			    success: function (data) {
+    				html = '<li>'+data.message+'</li>';
+    				$(".alert-danger").html(html).show();
+                    }
+                });
 			});
+
+			//function that changes the tab to the next
 		});
 })

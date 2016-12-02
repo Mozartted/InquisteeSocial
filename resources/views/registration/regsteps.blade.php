@@ -35,32 +35,37 @@
                           </div>
                       </div>
                       <div class="card-content sections">
+                          <div class="alert alert-danger" role="alert">
+
+                          </div>
                          <form>
                              <div class="col s12" id="profile">
+                                 <meta name="csrf-token" content="{{ csrf_token()}}">
                                  <div class="input-field">
                                      <label for="description">
                                          Describ Yourself There's enough time
                                      </label>
-                                     <textarea id="description" class="materialize-textarea"></textarea>
+                                     <textarea name="about" id="description" class="materialize-textarea"></textarea>
                                  </div>
 
                                  <div class="input-field">
                                      <label for="place">
                                          Where are you from
                                      </label>
-                                     <textarea id="place" class="materialize-textarea"></textarea>
+                                     <textarea name="location" id="place" class="materialize-textarea"></textarea>
                                  </div>
                              </div>
                              <div class="col s12" id="upload">
                                  <div class="col s12">
                                      <span class="header_medium color-grey">Upload A Profile Picture</span>
                                  </div>
+                                 <meta name="csrf-token" content="{{ csrf_token()}}">
                                  <div class="divider"></div>
                                  <div class="col s12">
 
                                      <form>
                                          <div class="col s12">
-                                             <div id="upload-demo"></div>
+                                             <div id="upload-into"></div>
                                              <input type="hidden" id="imagebase64" name="imagebase64">
 
                                          </div>
@@ -71,9 +76,7 @@
                                                  <span>Upload</span>
                                                  <input type="file" id="uploading" accept="image/*">
                                              </a>
-
-
-                                             <button  class="btn-flat upload-result">Send</button>
+                                             <div  class="btn-flat upload-result">Send</div>
                                          </div>
                                      </form>
                                  </div>

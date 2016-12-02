@@ -1,10 +1,15 @@
 <div class="card sections" style="overflow:hidden">
     <div class="card-content">
         <div class="col s12 center-align">
-            <img src="{{asset(Auth::user()->profile->profilePic->url)}}" class="feed-img responsive-img circle">
+            @if(empty(Auth::user()->profile->profileMedia->url))
+                <img src="{{asset('images/profile/myAvatar.png')}}" class="feed-img responsive-img circle">
+            @else
+                <img src="{{asset(Auth::user()->profile->profileMedia->url)}}" class="feed-img responsive-img circle">
+            @endif
         </div>
         <div class="col s12 center-align">
-            <span class=""><small>@ {!! Auth::user()->username !!}</small></span>
+            <a href="{{url('/'.Auth::user()->username)}}"><span class=""><small>@ {!! Auth::user()->username !!}</small></span></a>
+
             <span class=""><h6>{!! Auth::user()->profile->first_name !!} {!! Auth::user()->profile->last_name !!}</h6></span>
         </div>
     </div>

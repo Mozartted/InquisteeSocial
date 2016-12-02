@@ -18,9 +18,10 @@
 | These routes provide are for the registration_path for a new user
 |
 */
-Route::get('/',['as'=>'registration_path','uses'=>'RegistrationController@index']);
-Route::post('/',['as'=>'registration_path','uses'=>'RegistrationController@store']);
+Route::get('/welcome',['as'=>'registration_path','uses'=>'RegistrationController@index']);
+Route::post('/welcome',['as'=>'registration_path','uses'=>'RegistrationController@store']);
 Route::get('steps-register',['as'=>'register-steps','middleware'=>'auth','uses'=>'RegistrationController@steps']);
+Route::post('steps-register/pic',['as'=>'register-pic','middleware'=>'auth','uses'=>'RegistrationController@pic']);
 
 
 /*
@@ -31,8 +32,8 @@ Route::get('steps-register',['as'=>'register-steps','middleware'=>'auth','uses'=
 | using session controller
 |
 */
-Route::get('login',['as'=>'login_path','uses'=>'SessionController@store']);
-Route::delete('logout',['as'=>'login_path','uses'=>'SessionController@destroy']);
+Route::post('login',['as'=>'login_path','uses'=>'SessionController@store']);
+Route::get('logout',['as'=>'login_path','uses'=>'SessionController@destroy']);
 
 /*
 |--------------------------------------------------------------------------
@@ -45,9 +46,9 @@ Route::delete('logout',['as'=>'login_path','uses'=>'SessionController@destroy'])
 | to more views paginated.
 |
 */
-Route::group(['prefix'=>'home','middleware'=>'auth'],function(){
+Route::group(['middleware'=>'auth'],function(){
     Route::get('/',['as'=>'feeds_path','uses'=>'StatusFeedController@index']);
-    Route::put('/',['as'=>'feeds_path','uses'=>'StatusFeedController@store']);
+    Route::post('/',['as'=>'feeds_path','uses'=>'StatusFeedController@store']);
     Route::get('/more', ['as' => 'feeds_path_more', 'uses' => 'StatusFeedController@more']);
 });
 

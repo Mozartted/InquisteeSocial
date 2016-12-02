@@ -25,18 +25,18 @@ class Profile extends Model
     }
 
     public function like(){
-        return $this->hasOne('App\Models\Like');
+        return $this->hasOne('App\Models\Like','profiles_id');
     }
 
     public function media(){
-        return $this->hasMany('App\Models\Media','profile_pic');
+        return $this->hasMany('App\Models\Media','profiles_id');
     }
 
     public function schools(){
         return $this->belongsToMany('App\Models\School','profile_school','profiles_id','school_id');
     }
 
-    public function profilePic(){
+    public function profileMedia(){
         return $this->belongsTo('App\Models\Media','profile_pic');
     }
 

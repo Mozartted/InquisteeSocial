@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Repositories\Profiles\ProfilesRepository;
 use App\Models\Media;
+use App\Repositories\Status\StatusCommendRepository;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +20,23 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    public function show(ProfilesRepository $userrepository,User $user){
-        $userProfiles=$userrepository->getUserProfile($user);
-        return view('',['profile'=>$userProfiles]);
+    public function show(
+        ProfilesRepository $profilesRepository,
+        StatusCommendRepository $statusCommendRepository,
+        $user
+    ){
+        $user=User::where('username',$user)->first();
+        $userProfiles=$profilesRepository->getUserProfile($user);
+        $statusCommend=$statusCommendRepository->getStatusAndCommendsUser($user);
+
+        //collecting the users posts
+        return view('users.index',[
+            'profile'=>$userProfiles,
+            'posts'=>[
+                'Status'=>$statusCommend['Status'],
+                'Commend'=>$statusCommend['Commends']
+            ]
+        ]);
     }
 
 

@@ -158,14 +158,34 @@
                                 <li>
                                     <div class="collapsible-header"><i class="material-icons">filter_drama</i>Login With Lovenote</div>
                                     <div class="collapsible-body padding-10">
+                                        @if($errors->count())
+                                            <div class="alert alert-danger" role="alert">
+                                                <ul>
+                                                    @foreach($errors->all() as $error)
+                                                        <li>{!! $error!!}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @elseif(Session::has('error'))
+                                            <div class="alert alert-danger" role="alert">
+                                                <p><strong>We're sorry!  </strong>{!!  Session::get('error') !!}</p>
+                                            </div>
+                                        @endif
+                                        {!!Form::open(['url'=>'login'])!!}
                                         <div class="input-field">
-                                            <input type="text" id="username">
+                                            <input type="text" id="username" name="username">
                                             <label for="username">Username or Email</label>
                                         </div>
                                         <div class="input-field">
-                                            <input type="text" id="username">
-                                            <label for="username">Username or Email</label>
+                                            <input type="password" id="password" name="password">
+                                            <label for="password">Password</label>
                                         </div>
+                                        <div class="input-field col s12">
+                                            <button class=" red margining-2 btn waves-effect waves-light col s12" type="submit">Login
+                                                <i class="material-icons right">send</i>
+                                            </button>
+                                        </div>
+                                        {!! Form::close()!!}
                                     </div>
                                 </li>
                                 <li>

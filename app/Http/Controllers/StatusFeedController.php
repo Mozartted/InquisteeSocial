@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 use App\Events\StatusCreated;
-use App\Http\Requests\CreateStatusRequest;
+use Illuminate\Http\Request;
 use App\Jobs\CreateStatusJob;
 use App\Models\Love;
 use App\Models\Notification_change;
 use App\Repositories\Status\StatusCommendRepository;
-use Illuminate\Support\Facades\Request;
 use App\Models\Status;
+use App\Models\Media;
 use App\Models\Commend;
+use App\Services\ProcessImage;
 use Auth;
 
 class StatusFeedController extends Controller
@@ -29,13 +30,45 @@ class StatusFeedController extends Controller
 
     public function index(StatusCommendRepository $statusStuff){
         $statusThighs=$statusStuff->getStatusAndCommendsLeaderUser(Auth::user());
-        //['status'=>$statusThighs['Status'],'commends'=>$statusThighs['Commends']]
-        return view('feed.index');
+        $status=$statusThighs['Status'];
+        $commends=$statusThighs['Commend'];
+        return view('feed.index',[
+            'status'=>$status,
+            'commends'=>$commends
+        ]);
 
     }
 
-    public function store(CreateStatusRequest $request){
-        $this->dispatch(new CreateStatusJob($request));
+    public function store(Request $request){
+
+        $status=new Status(
+            [
+                'status_text'=>$request->status_text,
+            ]
+        );
+
+        Auth::user()->status()->save($status);
+
+        $urlAndExtension=[];
+
+        if($request->hasFile('image')){
+            $file=$request->file('image');
+            $media=new Media([
+                'url'=>(new ProcessImage())->saveStatus($file,$path="images/status/"),
+                'type'=>$request->image->extension()
+            ]);
+
+            Auth::user()->profile->media()->save($media);
+
+            $urlAndExtension[$media->id]=['description'=>$media['url']];
+
+        }else{
+            return response()->json(false);
+        }
+
+        $status->media()->attach(
+            $urlAndExtension
+        );
 
         return response()->json(true);
     }
