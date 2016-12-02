@@ -10,7 +10,15 @@
         "intervention/image": "dev-master",
         "laravelcollective/html": "^5.3",
         "doctrine/dbal": "^2.5",
-        "laravel/socialite": "^2.0"
+        "laravel/socialite": "^2.0",
+        "ext-pdo":"*",
+        "ext-bcmath": "*",
+        "ext-mcrypt": "*",
+        "ext-memcached": "*",
+        "ext-mbstring":"*",
+        "ext-mcrypt":"*",
+        "ext-pdo_sqlite":"*",
+        "ext-gd":"*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
