@@ -18,6 +18,7 @@
         "ext-mbstring":"*",
         "ext-mcrypt":"*",
         "ext-pdo_sqlite":"*",
+        "ext-pdo_mysql":"*",
         "ext-gd":"*"
     },
     "require-dev": {
