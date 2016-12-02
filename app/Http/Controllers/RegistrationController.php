@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ProcessImage;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\RegisterUserRequest;
 use App\Jobs\CreateUserJob;
 use Carbon\Carbon;
+use App\Models\Media;
 use Auth;
+use Illuminate\Support\Facades\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,5 +80,35 @@ class RegistrationController extends Controller
 
     public function steps(){
         return view('registration.regsteps',['no_app'=>true]);
+    }
+
+    public function pic(Request $req){
+        if($req->ajax()){
+            $data=$req->image;
+
+
+
+            $profileUrl=(new ProcessImage())->saveProfileAjax($data, 'images/profileimages/');
+
+            $media=new Media([
+                'type'=>'png',
+                'url'=>$profileUrl
+            ]);
+
+            Auth::user()->profile->media()->save($media);
+
+            if(Auth::user()->profile->profileMedia()->associate($media)){
+                Auth::user()->profile->save();
+                return Response::json(
+                    ['message'=>"completed"]
+                );
+            }
+            else {
+                return Response::json(['message'=>'not uploaded']);
+            }
+
+        }
+
+
     }
 }

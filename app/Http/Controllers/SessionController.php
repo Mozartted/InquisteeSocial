@@ -26,8 +26,16 @@ class SessionController extends Controller
         | Login user using the Auth Attempt option
         |
         */
-        if(! Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-            return redirect()->back()->with('error','we are unable to sign you in, check your credentials please');
+
+        if(! Auth::attempt(['email' => $request->username, 'password' => $request->password])){
+            if(! Auth::attempt(['username' => $request->username,'password'=> $request->password])){
+                return redirect()->back()->with('error','we are unable to sign you in, check your credentials please');
+            }else{
+                $CurrentUser=Auth::user();
+                return redirect()->route('feeds_path')->with('message','welcome '
+                    .$CurrentUser->profile->first_name.
+                    ', How are you?');
+            }
         }else{
             $CurrentUser=Auth::user();
             return redirect()->route('feeds_path')->with('message','welcome '
@@ -48,8 +56,7 @@ class SessionController extends Controller
         |
         */
         Auth::logout();
-
-        return response()->json(['response' => 'success']);
+        return  redirect()->guest('welcome');
 
     }
 
