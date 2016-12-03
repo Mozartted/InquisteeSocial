@@ -191,17 +191,21 @@
                                 <li>
                                     <div class="collapsible-header"><i class="material-icons">place</i>Login With Facebook</div>
                                     <div class="collapsible-body">
+                                        <a href="social/login/redirect/facebook">
                                         <button class=" blue margining-2 btn waves-effect waves-light col s12" type="submit" name="action">Login with Facebook
                                             <i class="material-icons right">send</i>
                                         </button>
+                                        </a>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="collapsible-header"><i class="material-icons">whatshot</i>Login With Google</div>
                                     <div class="collapsible-body">
+                                        <a href="social/login/redirect/google">
                                         <button class=" red margining-2 btn waves-effect waves-light col s12" type="submit" name="action">Login with Google
                                             <i class="material-icons right">send</i>
                                         </button>
+                                        </a>
                                     </div>
                                 </li>
 

@@ -178,3 +178,10 @@ Route::group(['prefix'=>'ajax','middleware'=>'auth'], function(){
 */
 Route::get('/{user}',['as'=>'user_profile_path','middleware'=>'auth','uses'=>'UserController@show']);
 Route::get('/{user}/edit',['as'=>'user_profile_edit','middleware'=>'auth','uses'=>'UserController@edit']);
+
+
+/*
+Socialite Routes of the Application
+***/
+Route::get('social/login/redirect/{provider}',['uses'=>'Auth\AuthController@redirectToProvider', 'as'=>'social.login']);
+Route::get('social/login/{provider}/callback','Auth\AuthController@handleProviderCallback');
