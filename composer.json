@@ -11,6 +11,7 @@
         "laravelcollective/html": "^5.3",
         "doctrine/dbal": "^2.5",
         "laravel/socialite": "^2.0",
+        "fzaninotto/faker": "~1.4",
         "ext-pdo":"*",
         "ext-bcmath": "*",
         "ext-mcrypt": "*",
