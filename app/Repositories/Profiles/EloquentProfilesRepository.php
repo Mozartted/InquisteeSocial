@@ -19,22 +19,22 @@ class EloquentProfilesRepository implements ProfilesRepository
     {
         //searching all Profiles with parameter Pattern Returing all result
         $whereFirstNameIsLikeParameter=[
-            ['first_name','=',$request->data],
-            ['first_name','like','%' .$request->data.'%']
+            ['first_name','=',$request->search],
+            ['first_name','like','%' .$request->search.'%']
         ];
 
         $whereLastNameIsLikeParameter=[
-            ['last_name','=',$request->data],
-            ['last_name','like','%' .$request->data.'%']
+            ['last_name','=',$request->search],
+            ['last_name','like','%' .$request->search.'%']
         ];
 
         $whereUserNameisLikeParameter=[
-            ['username','=',$request->data],
-            ['username','like','%' .$request->data.'%']
+            ['username','=',$request->search],
+            ['username','like','%' .$request->search.'%']
         ];
         $users=Profile::where($whereFirstNameIsLikeParameter)
-            ->where($whereLastNameIsLikeParameter)
-            ->Where('user_id',User::where($whereUserNameisLikeParameter)->list('id'))
+            ->union(Profile::where($whereLastNameIsLikeParameter))
+            ->union(Profile::where('user_id',User::where($whereUserNameisLikeParameter)->get()->pluck('id')))
             ->get();
 
         return $users;

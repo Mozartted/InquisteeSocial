@@ -12,7 +12,8 @@ use Socialite;
 class AuthController extends Controller
 {
     //
-    protected $redirectTo = '/steps-register';
+    protected $redirectRegister = '/steps-register';
+    protected $redirectTo='/';
 
     public function redirectToProvider($provider)
     {
@@ -23,10 +24,14 @@ class AuthController extends Controller
     public function handleProviderCallback($provider)
     {
         $user=Socialite::driver($provider)->user();
-        $authUser = $this->findOrCreateUser($user, $provider);
-        Auth::login($authUser, true);
+        $userArray = $this->findOrCreateUser($user, $provider);
+        Auth::login($userArray['user'], true);
 
-        return redirect($this->redirectTo);
+        if($userArray['status']=="existing"){
+            return redirect($this->redirectTo);
+        }else{
+            return redirect($this->redirectRegister);
+        }
 
     }
 
@@ -34,11 +39,17 @@ class AuthController extends Controller
     {
         $authUser = User::where('provider_id', $user->id)->first();
         if ($authUser) {
-            return $authUser;
+            return [
+                    'user'=>$authUser,
+                    'status'=>"existing"
+                ];
         }else{
             $authUser=User::where('email',$user->email)->first();
             if ($authUser){
-                return $authUser;
+                return [
+                        'user'=>$authUser,
+                        'status'=>"existing"
+                    ];
             }
         }
 
@@ -61,6 +72,9 @@ class AuthController extends Controller
 
         $userCreated->profile()->save($proflie);
 
-        return $userCreated;
+        return [
+                'user'=>$userCreated,
+                'status'=>"new"
+            ];
     }
 }

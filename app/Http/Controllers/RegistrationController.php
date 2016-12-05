@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Services\ProcessImage;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\User;
 use App\Http\Requests\RegisterUserRequest;
 use App\Jobs\CreateUserJob;
 use Carbon\Carbon;
 use App\Models\Media;
 use Auth;
-use Illuminate\Support\Facades\Response;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -109,6 +110,22 @@ class RegistrationController extends Controller
 
         }
 
+
+    }
+
+    public function details(Request $req){
+        $profile=Auth::user()-profile;
+        if($profile){
+            $profile->about=$req->about;
+
+            return Response::json(
+                ['message'=>'Profile Updated completed']
+            );
+        }else {
+            return Response::json(
+                ['message'=> 'Profile Couldn\'nt be updated']
+            );
+        }
 
     }
 }

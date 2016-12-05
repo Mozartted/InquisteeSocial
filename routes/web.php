@@ -22,6 +22,8 @@ Route::get('/welcome',['as'=>'registration_path','uses'=>'RegistrationController
 Route::post('/welcome',['as'=>'registration_path','uses'=>'RegistrationController@store']);
 Route::get('steps-register',['as'=>'register-steps','middleware'=>'auth','uses'=>'RegistrationController@steps']);
 Route::post('steps-register/pic',['as'=>'register-pic','middleware'=>'auth','uses'=>'RegistrationController@pic']);
+Route::post('steps-register/deatils',['as'=>'register-deatils','middleware'=>'auth','uses'=>'RegistrationController@details']);
+
 
 
 /*
@@ -100,6 +102,7 @@ Route::get('/notifications',['as'=>'notifications_path','middleware'=>'auth','us
 | in the Route group prefixed ajax.
 |
 */
+Route::post('/search',['as'=>'search_path','middleware'=>'auth','uses'=>'SearchController@searchSomething']);
 Route::get('/search',['as'=>'search_path','middleware'=>'auth','uses'=>'SearchController@index']);
 
 /*
@@ -150,7 +153,7 @@ Route::group(['prefix'=>'ajax','middleware'=>'auth'], function(){
     | Performs the search request and responds in JSON
     |
     */
-    Route::post('/search/',['as'=>'search_path','uses'=>'SearchController@search']);
+    Route::post('/search',['as'=>'search_path','uses'=>'SearchController@search']);
 
     /*
     |--------------------------------------------------------------------------
@@ -163,7 +166,6 @@ Route::group(['prefix'=>'ajax','middleware'=>'auth'], function(){
     Route::post('/question/{question}',['as'=>'question_answer','uses'=>'QuestionControlle@answering']);
 
 });
-
 /*
 |--------------------------------------------------------------------------
 | User Profile and Edits Routes

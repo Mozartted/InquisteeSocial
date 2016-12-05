@@ -1,5 +1,25 @@
 $( document ).ready(function(){
 
+    $('.modal').modal(
+
+    );
+
+    $(".dropdown-button").dropdown(
+
+        {
+            inDuration: 300,
+      outDuration: 225,
+      constrain_width: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0
+        }
+    );
+
+    $('.datepicker').pickadate({
+     selectMonths: true, // Creates a dropdown to control month
+     selectYears: 15 // Creates a dropdown of 15 years to control year
+    });
+
     $(".alert-danger").hide();
     $('select').material_select();
 
@@ -105,4 +125,33 @@ $( document ).ready(function(){
 
 			//function that changes the tab to the next
 		});
+
+
+        $('#upload_details').on('click',function(){
+            var details={
+                about:$('#description').val(),
+                location:$('#place').val()
+            }
+
+            $.ajaxSetup({
+                headers: {
+                     'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax(
+                {
+                url: 'steps-register/details',
+                type: 'POST',
+                data: details,
+                dataType:'json',
+                success: function (data) {
+                    html = '<li>'+data.message+'</li>';
+                    $(".alert-danger").html(html).show();
+                }
+            });
+        })
+
+
+
 })

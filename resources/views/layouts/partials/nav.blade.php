@@ -5,7 +5,7 @@
     <li class="divider"></li>
     <li><a href="{{url('/logout')}}">Logout</a></li>
 </ul>
-<nav class="nav-wrapper">
+<nav class="nav-wrapper" style="">
 
         <div class="nav-wrapper red darken-1">
                             @if (Auth::check())
@@ -39,11 +39,13 @@
 
                                     </div>
                                 </div>
+                                {!!Form::open(['url'=>"search/"])!!}
                                 <div class="input-field right">
-                                    <input id="search" type="search" required>
+                                    <input id="search" type="search" name="search" required>
                                     <label for="search"><i class="material-icons">search</i></label>
                                     <i class="material-icons">close</i>
                                 </div>
+                                {!!Form::close()!!}
                             @endif
 
 

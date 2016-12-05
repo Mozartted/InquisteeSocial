@@ -12,10 +12,23 @@ class SearchController extends Controller
     //would operate in a repository
     //this section handles Search's against all bool shit.
     //and returns a json array of them all.
-    public function searchSomeThing(Request $request,ProfilesRepository $profilesRepository,StatusCommendRepository $statusCommendRepository){
+    public function searchSomething(Request $request,ProfilesRepository $profilesRepository,StatusCommendRepository $statusCommendRepository){
         //perform search using the reposities
         $profileSearched=$profilesRepository->searchProfilesAll($request);
         $statusSearched=$statusCommendRepository->searchStatusAll($request);
+
+
+        // response()->json([
+            //'profilesSearched'=>$profileSearched,
+            // 'statusSearched'=>$statusSearched
+        // ]);
+        return view('search.index',['profile'=>$profileSearched,'status'=>$statusSearched]);
+    }
+
+    public function search(Request $request,ProfilesRepository $profilesRepository,StatusCommendRepository $statusCommendRepository){
+        //perform search using the reposities
+        $profileSearched=$profilesRepository->searchProfilesAll($request->search);
+        $statusSearched=$statusCommendRepository->searchStatusAll($request->search);
 
         return response()->json([
             'profilesSearched'=>$profileSearched,

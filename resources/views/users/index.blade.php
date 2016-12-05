@@ -1,62 +1,131 @@
 @extends('layouts.default')
+
+
+
 @section('content')
     <body>
-    <div>
-        @include('layouts.partials.nav')
-  <div>
-      <div class="row ">
-          <div class="col s12 m8">
-              <div class="card sections" style="width:100%">
-                  @include('users.partials.cover')
-                  <div class="card-action" style="overflow:hidden; padding:0px">
-                      <div class="col s12 nav-extended">
-                          <ul class="tabs tabs-transparent">
-                              <li class="tab"><a  class="active" href="#test1">
-                                  <span class="profile-menu-icon">
-                                   About
-                                </span></a>
-                            </li>
-                              <li class="tab"><a href="#test2"><span class="profile-menu-icon">
-                                   Posts
-                              </span></a></li>
-                              <li class="tab"><a href="#test3"><span class="profile-menu-icon">
-                                   Photos
-                              </span></a></li>
-                              <li class="tab"><a href="#test4"><span class="profile-menu-icon">
-                                   More
-                              </span></a></li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="col s12" style="padding:0px">
-                      <div id="test1" class="small-block-grid-2 medium-block-grid-4 large-block-grid-6">
-                          <div class="col s12 m6">
-                              @include('users.partials.story')
-                          </div>
-                          <div class="col s12 m6">
-                              @include('users.partials.work')
-                              @include('users.partials.likes')
+        <div>
+            @include('layouts.partials.nav')
+      <div>
+          <div class="row ">
+              <div class="col s12 m9">
+                    @include('users.partials.cover')
+                      <div class="col s12" style="padding:0px">
+                          <div id="test1" class="small-block-grid-2 medium-block-grid-4 large-block-grid-6">
+                              <div class="col s12 m4 ">
+                                  @include('users.partials.intro')
+                              </div>
+                              <div class="col s12 m7 ">
+
+
+                                  <div class="card sections top-card-border-yellow">
+                                      <div class="card-title" style="padding:12px;">
+                                          <span style="font-weight: light">Timeline</span>
+                                      </div>
+                                      <div class="card-content">
+                                          <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 45% }'>
+                                              @include('users.partials.timeline')
+                                          </div>
+
+                                      </div>
+                                  </div>
+
                           </div>
                       </div>
-                      <div id="test2" class="col s12">
-                          <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 45% }'>
-                              @include('users.partials.post')
-                          </div>
+                    <div id="test2" class="col s12">
+                        <div class="col s12">
+                            <div class="card sections">
+                                <div class="card-header grey darken-3 white-text padding-5">
+                                    <div class="card-title"><span>About</span></div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="col s3" style="border-right:#e3e3e3 1px solid">
+                                        <div class="tabbed collective">
+                                            <div data-tab="overview " class="collection-item active">Overview</div>
+                                            <div data-tab="education" class="collection-item">Education</div>
+                                            <div data-tab="opinions" class="collection-item">Opinions</div>
+                                        </div>
+                                    </div>
+                                    <div class="col s9">
+                                        <div class="tab-content active" id="overview">
+                                            @include('users.partials.overview')
+                                        </div>
+                                        <div class="tab-content" id="opinions">
+                                            @include('users.partials.opinions')
+                                        </div>
+                                        <div class="tab-content" id="education">
+                                            @include('users.partials.education')
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="card sections">
+                                <div class="card-header blue darken-3 white-text padding-5">
+                                    <div class="card-title"><span>Photos</span></div>
+                                </div>
+                                <div class="card-content">
+                                    <div>
+                                        <div class="pics">
+                                            <div class="photo">
+                                                <img src="images/forest-patrol.jpg" class="photo-thumbs"/>
+                                            </div>
+                                            <div class="photo">
+                                                <img src="images/forest-patrol.jpg" class="photo-thumbs"/>
+                                            </div>
+                                            <div class="photo">
+                                                <img src="images/forest-patrol.jpg" class="photo-thumbs"/>
+                                            </div>
+                                            <div class="photo">
+                                                <img src="images/forest-patrol.jpg" class="photo-thumbs"/>
+                                            </div>
+                                            <div class="photo">
+                                                <img src="images/forest-patrol.jpg" class="photo-thumbs"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="card sections">
+                                <div class="card-header red darken-3 white-text padding-5">
+                                    <div class="card-title"><span>Movies</span></div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="col s12" style="border-right:#e3e3e3 1px solid">
+                                        <div class="tabbed collective">
+                                            <div data-tab="overview " class="collection-item active">Teminator</div>
+                                            <div data-tab="education" class="collection-item">Love Trone</div>
+                                            <div data-tab="opinions" class="collection-item">Implications</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
                       </div>
-                      <div id="test3" class="col s12">Test 3</div>
-                      <div id="test4" class="col s12">Test 4</div>
-                  </div>
+
+              </div>
+              <div class="col s4 m3 hide-on-small-only">
+                  @include('feed.partials.followcard')
+              </div>
+              </div>
 
           </div>
       </div>
-      <div class="col s4 m3 hide-on-small-only">
-          @include('feed.partials.followcard')
-      </div>
-
 
       </div>
-  </div>
-  </div>
+    </div>
+    @include('users.partials.editmodal')
+    </body>
+    @include('layouts.partials.scripts')
 
-</body>
 @endsection

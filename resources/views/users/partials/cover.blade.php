@@ -1,32 +1,78 @@
-<div class="card-image cover-row" style="height:250px">
-    @if(isset($profile['cover_pic']))
-        <img class="status-img" src="{{asset($profile['cover_pic']->url)}}" style="height:inherit">
-    @else
-        <img class="status-img" src="" style="height:inherit">
-    @endif
 
-     <div class="card-title col s12 m6" style="">
-          <div class="row">
-              <div class="col s12 m7 center-align">
-                  <div class="col s12 center-align">
-                      @if(isset($profile['profile_pic']))
-                          <img src="{{asset($profile['profile_pic']->url)}}" class="circle" style="height: 100px; width: 100px; border-radius:50%; margin:auto ">
-                      @else
-                          <img src="{{asset($profile['profile_pic']->url)}}" class="circle" style="height: 100px; width: 100px; border-radius:50%; margin:auto ">
-                      @endif
+<div class="card sections" style="width:100%">
+    <div class="card-image cover-row" style="height:300px">
+        @if(isset($profile['cover_pic']))
+            <img class="status-img" src="{{asset($profile['cover_pic']->url)}}" style="height:inherit">
+        @else
+            <img class="status-img" src="images/cover/cover.jpg" style="height:inherit">
+        @endif
 
-                  </div>
-                  <div class="col s12" style="margin-top: 24px;">
-                      <div style="font-size:15px; margin:auto" class="red-text">
-                          {{$profile['firstname'].' '.$profile['lastname']}}
-                          <div class="divider"></div>
+         <div class="card-title col s12 m6" style="">
+              <div class="row">
+                  <div class="col s12 m7 center-align">
+                      <div class="col s12 center-align">
+                          @if(isset($profile['profile_pic']))
+                              <img src="{{asset($profile['profile_pic']->url)}}" class="circle" style="height: 100px; width: 100px; border-radius:50%; margin:auto ">
+                          @else
+                              <img src="{{asset($profile['profile_pic']->url)}}" class="circle" style="height: 100px; width: 100px; border-radius:50%; margin:auto ">
+                          @endif
 
-                          <span><small style="font-size:12px;">@ {{$profile['username']}}</small></span>
+                      </div>
+                      <div class="col s12" style="margin-top: 24px;">
+                          <div style="font-size:15px; margin:auto" class="white-text">
+                              {{$profile['firstname'].' '.$profile['lastname']}}
+                              <div class="divider"></div>
+
+                              <span><small style="font-size:12px;">@ {{$profile['username']}}</small></span>
+                          </div>
+
                       </div>
 
+                      <div class="col s12">
+                          <div class="col s6 btn red white-text font-pattern2 truncate">
+
+                              interested
+
+                          </div>
+                          <div class="truncate col s6 btn blue white-text font-pattern2">
+                              follow
+                          </div>
+                      </div>
+                      <div class="col s12">
+                              <div class="btn red" data-target="edit">
+
+                                  <span class="profile-menu-icon white-text">
+                                      Edit Profile
+                                  </span>
+                              </div>
+                      </div>
                   </div>
               </div>
-          </div>
 
-     </div>
+         </div>
+
+    </div>
+    <div class="card-action" style="overflow:hidden; padding:0px">
+        <div class="col s12 nav-extended">
+            <ul class="tabs tabs-transparent">
+                <li class="tab"><a  class="active" href="#test1">
+                    <span class="profile-menu-icon">
+                    Timeline
+                  </span></a>
+              </li>
+                <li class="tab"><a href="#test2"><span class="profile-menu-icon">
+                     About
+                </span></a></li>
+                <li class="tab"><a href="#test3"><span class="profile-menu-icon">
+                     Followers
+                </span></a></li>
+                <li class="tab"><a href="#test4"><span class="profile-menu-icon">
+                    Following
+                </span></a></li>
+                <li class="tab"><a href="#test4"><span class="profile-menu-icon">
+                    More
+                </span></a></li>
+            </ul>
+        </div>
+    </div>
 </div>

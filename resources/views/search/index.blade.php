@@ -50,6 +50,9 @@
 
                           </ul>
                       </div>
+
+                  </div>
+                  <div class="card sections">
                       <div class="" id="people">
                           @include('search.partials.searchuser')
                       </div>
@@ -60,7 +63,7 @@
 
               </div>
               <div class="col s4 m3 hide-on-small-only">
-                  @include('layouts.partials,footer')
+                  @include('layouts.partials.footer')
 
                   </div>
               </div>

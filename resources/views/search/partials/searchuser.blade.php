@@ -1,10 +1,10 @@
 <div class="card sections min-margin">
    <div>
-       @foreach ($variable as $key => $value)
-           <div class="col s12">
+       @foreach ($profile as $pro)
+           <div class="col s12 sections">
                <div class="col s12 row margin-min-10">
                    <div class="col s2">
-                       <img src="images/profile/myAvatar.png" class="feed-img-status circle">
+                       <img src="{{asset($pro->profileMedia->url)}}" class="feed-img-status circle">
                    </div>
                    <div class="col s10">
                        <p class="username-text" style="color:#757575;">Chibuike Osita</p>

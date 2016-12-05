@@ -350,3 +350,56 @@ button:focus {
     height: 100%;
     opacity: 0;
 }
+
+.profile-cover{
+    width:800px;
+    margin-top:-15px;
+}
+
+#profile{
+    top:400px
+    position: relative;
+}
+
+.collective > div{
+    font-size:13px;
+    margin:auto;
+    border-bottom: #e3e3e3 1px solid;
+    margin-left: 12px;
+    margin-right:12px;
+    height:30px;
+}
+
+.font-pattern1{
+    font-size: 15px;
+    font-family: ubuntu;
+    font-weight: lighter;
+    padding:12px;
+}
+
+.font-pattern2{
+    font-size: 11px;
+    font-family: ubuntu;
+    font-weight: lighter;
+    margin: auto;
+}
+
+font-pattern2 > div{
+    padding:12px;
+    margin-top: 5px;
+}
+
+.photo-thumbs{
+    width:200px;
+    height:200px;
+
+}
+
+.photo{
+    float: left;
+    padding:2px;
+}
+
+.borlined{
+    margin:33px
+}
