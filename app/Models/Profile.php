@@ -21,7 +21,7 @@ class Profile extends Model
 
     //Relationships
     public function user(){
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User','users_id');
     }
 
     public function like(){

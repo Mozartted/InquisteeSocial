@@ -5,24 +5,43 @@
     <li class="divider"></li>
     <li><a href="{{url('/logout')}}">Logout</a></li>
 </ul>
+<div class="col s12 m5 float-search">
+    <div class="card">
+        <div class="card-content">
+            <div class="col s12" style="min-height:72px">
+                <div class="col s12 row margin-min-10 ">
+                    <div class="col s2">
+                        <img src="" class="feed-img-status circle">
+                    </div>
+                    <div class="col s10">
+                        <p class="username-text" style="color:#757575;">Chibuike Osita</p>
+                        <a href=""><small></small></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <nav class="nav-wrapper" style="">
 
         <div class="nav-wrapper red darken-1">
                             @if (Auth::check())
                                 <ul class="left">
                                     <li class="nav-notifying">
-                                        <a href="https://twitter.com/">
+                                        <a href="{{url('/')}}">
 
                                             <span class="text"><i class="material-icons">home</i></span>
                                         </a>
                                     </li>
                                     <li  class="nav-notifying">
-                                        <a href="https://twitter.com/">
+                                        <a href="{{url('/notifications')}}">
                                             <span class="text"><i class="material-icons">notifications</i></span>
                                         </a>
                                     </li>
                                     <li class="nav-notifying">
-                                        <a href="https://twitter.com/">
+                                        <a href="{{url('/messages')}}">
                                             <span class="text"><i class="material-icons">message</i></span>
                                         </a>
                                     </li>

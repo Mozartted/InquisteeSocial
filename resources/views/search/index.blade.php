@@ -53,7 +53,7 @@
 
                   </div>
                   <div class="card sections">
-                      <div class="" id="people">
+                      <div class="card-content" id="people">
                           @include('search.partials.searchuser')
                       </div>
                       <div class="" id="posts">
@@ -63,7 +63,7 @@
 
               </div>
               <div class="col s4 m3 hide-on-small-only">
-                  @include('layouts.partials.footer')
+                  @include('feed.partials.followcard')
 
                   </div>
               </div>

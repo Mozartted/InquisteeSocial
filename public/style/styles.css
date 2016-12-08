@@ -56,6 +56,8 @@
     height:300px;
 }
 
+
+
 .status-text{
     font-size: 15px;
 }
@@ -402,4 +404,16 @@ font-pattern2 > div{
 
 .borlined{
     margin:33px
+}
+
+.in-list{
+    min-height:72px;
+}
+
+.float-search{
+    position: absolute;
+    top: 72px;
+    display: block;
+    z-index: 120;
+    right: 5.5px;
 }

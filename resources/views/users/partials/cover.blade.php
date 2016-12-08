@@ -27,25 +27,26 @@
                           </div>
 
                       </div>
-
-                      <div class="col s12">
-                          <div class="col s6 btn red white-text font-pattern2 truncate">
-
-                              interested
-
+                      @if (Auth::user()->username==$profile['username'])
+                          <div class="col s12">
+                                  <div class="btn red" data-target="edit">
+                                      <span class="profile-menu-icon white-text">
+                                          Edit Profile
+                                      </span>
+                                  </div>
                           </div>
-                          <div class="truncate col s6 btn blue white-text font-pattern2">
-                              follow
-                          </div>
-                      </div>
-                      <div class="col s12">
-                              <div class="btn red" data-target="edit">
-
-                                  <span class="profile-menu-icon white-text">
-                                      Edit Profile
-                                  </span>
+                      @else
+                          <div class="col s12">
+                              <div class="col s6 btn red white-text font-pattern2 truncate">
+                                  interested
                               </div>
-                      </div>
+                              <div class="truncate col s6 btn blue white-text font-pattern2">
+                                  follow
+                              </div>
+                          </div>
+
+                      @endif
+
                   </div>
               </div>
 
