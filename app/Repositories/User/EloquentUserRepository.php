@@ -19,5 +19,5 @@ class EloquentUserRepository implements UserRepository
 
     }
 
-    
+
 }

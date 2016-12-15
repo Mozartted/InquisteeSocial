@@ -51,19 +51,19 @@ class User extends Authenticatable
     }
 
     public function followers(){
-        return $this->hasMany('App\Models\Following','leader');
+        return $this->belongsToMany('App\Models\User','followings','leader','follower')->withTimestamps();
     }
 
     public function leaders(){
-        return $this->hasMany('App\Models\Following','follower');
+        return $this->belongsToMany('App\Models\User','followings','follower','leader')->withTimestamps();
     }
 
     public function interestedIn(){
-        return $this->hasMany('App\Models\Interest','shower');
+        return $this->belongsToMany('App\Models\User','interests','shower','subject')->withTimestamps();
     }
 
     public function InTheirInterest(){
-        return $this->hasMany('App\Models\Interest','subject');
+        return $this->belongsToMany('App\Models\User','interests','subject','shower')->withTimestamps();
     }
 
     /*

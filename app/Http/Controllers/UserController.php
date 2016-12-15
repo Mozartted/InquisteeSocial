@@ -7,6 +7,9 @@ use App\Models\Media;
 use App\Repositories\Status\StatusCommendRepository;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Auth;
+use Illuminate\Database\Eloquent\Model;
+use App\Repositories\User\UserRepository;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,19 +26,41 @@ class UserController extends Controller
     public function show(
         ProfilesRepository $profilesRepository,
         StatusCommendRepository $statusCommendRepository,
+        UserRepository $userrepository,
         $user
     ){
         $user=User::where('username',$user)->first();
         $userProfiles=$profilesRepository->getUserProfile($user);
         $statusCommend=$statusCommendRepository->getStatusAndCommendsUser($user);
 
+        $followed=null;
+        $interested=null;
+
+        $followers=$userrepository->getPaginatedFollowers($user,20);
+        $following=$userrepository->getPaginatedLeadersid($user,20);
         //collecting the users posts
+        if(Auth::user()->leaders()->where('leader',$user->id)){
+          $followed=true;
+        }else{
+          $followed=false;
+        }
+
+        if(Auth::user()->interestedIn()->where('leader',$user->id)){
+          $followed=true;
+        }else{
+          $followed=false;
+        }
+
         return view('users.index',[
             'profile'=>$userProfiles,
             'posts'=>[
                 'Status'=>$statusCommend['Status'],
                 'Commend'=>$statusCommend['Commends']
-            ]
+            ],
+            'followed'=>$followed,
+            'interested'=>$interested,
+            'followers'=>$followers,
+            'following'=>$following
         ]);
     }
 
@@ -126,15 +151,22 @@ class UserController extends Controller
 
     }
 
-    public function follow(User $user){
+    public function follow(Request $request){
         //create a following relationship between a the Auth user and another user_id
         $userMe=Auth::user();
-        $userMe->leaders()->save($user);
 
-        return response()->json(true);
+        $user= User::where('username',$request->Username)->first();
+
+        if($userMe->leaders()->save($user)){
+          $message="unfollow";
+          return response()->json(['message'=>$message]);
+        }else {
+          $message="follow";
+          return response()->json();
+        }
     }
 
-    public function unfollow(User $user){
+    public function unfollow(Request $request){
         //destroying the relationship between Auth and his leader
         $userMe=Auth::user();
         $badLeader=$userMe->leader()->where('leader',$user->id);

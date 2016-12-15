@@ -41,8 +41,8 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            'App\Repositories\Feed\UserRepository',
-            'App\Repositories\Feed\EloquentUserRepository'
+            'App\Repositories\User\UserRepository',
+            'App\Repositories\User\EloquentUserRepository'
         );
 
         $this->app->bind(
@@ -51,8 +51,8 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            'App\Repositories\User\MessageRepository',
-            'App\Repositories\User\EloquentMessageRepository'
+            'App\Repositories\Messages\MessageRepository',
+            'App\Repositories\Messages\EloquentMessageRepository'
         );
 
         $this->app->bind(

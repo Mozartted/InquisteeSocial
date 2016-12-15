@@ -29,14 +29,12 @@ class SearchController extends Controller
         return view('search.index');
     }
 
-    public function search(Request $request,ProfilesRepository $profilesRepository,StatusCommendRepository $statusCommendRepository){
+    public function search(Request $request,ProfilesRepository $profilesRepository){
         //perform search using the reposities
         $profileSearched=$profilesRepository->searchProfilesAll($request->search);
-        $statusSearched=$statusCommendRepository->searchStatusAll($request->search);
 
         return response()->json([
             'profilesSearched'=>$profileSearched,
-            'statusSearched'=>$statusSearched
         ]);
     }
 

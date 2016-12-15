@@ -4,6 +4,12 @@ $( document ).ready(function(){
 
     );
 
+    $('#searchh').autocomplete(
+      {
+        serviceUrl:'/ajax/search',
+      }
+    );
+
     $(".dropdown-button").dropdown(
 
         {
@@ -127,31 +133,97 @@ $( document ).ready(function(){
 		});
 
 
-        $('#upload_details').on('click',function(){
-            var details={
-                about:$('#description').val(),
-                location:$('#place').val()
+    $('#upload_details').on('click',function(){
+          var details={
+              about:$('#description').val(),
+              location:$('#place').val()
+          }
+          $.ajaxSetup({
+              headers: {
+                   'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+              }
+          });
+          $.ajax(
+              {
+              url: 'steps-register/details',
+              type: 'POST',
+              data: details,
+              dataType:'json',
+              success: function (data) {
+                  html = '<li>'+data.message+'</li>';
+                  $(".alert-danger").html(html).show();
+              }
+          });
+      });
+
+      //the click handler for follow button
+      $('#follow').on('click',function(){
+        //first step is to collect the username of the followed individual
+        var username=$('#followIn').val();
+
+        $.ajaxSetup(
+          {
+            headers:{
+              'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+          }
+        );
+
+        if($('#follow').text()=="follow"){
+          $.ajax(
+            {
+              url:'ajax/follow',
+              type:'POST',
+              data:{
+                Username:username
+              },
+              dataType:'json',
+              success:function(data){
+                if(data.message=="unfollow"){
+                  var response=data.message;
+                  $('#follow').text(response);
+                }else{
+                  html = '<li>'+'follower mechanism not functional'+'</li>';
+                  $(".alert-danger").html(html).show();
+                }
+              },
+              error:function(){
+                html = '<li>'+'follower mechanism not functional'+'</li>';
+                $(".alert-danger").html(html).show();
+              }
+
             }
 
-            $.ajaxSetup({
-                headers: {
-                     'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+          );
+        }else{
+          $.ajax(
+            {
+              url:'ajax/unfollow',
+              type:'POST',
+              data:{
+                Username:username
+              },
+              dataType:'json',
+              success:function(data){
+                if(data.message=="follow"){
+                  var response=data.message;
+                  $('#follow').text(response);
+                }else{
+                  html = '<li>'+'follower mechanism not functional'+'</li>';
+                  $(".alert-danger").html(html).show();
                 }
-            });
+              },
+              error:function(){
+                html = '<li>'+'follower mechanism not functional'+'</li>';
+                $(".alert-danger").html(html).show();
+              }
 
-            $.ajax(
-                {
-                url: 'steps-register/details',
-                type: 'POST',
-                data: details,
-                dataType:'json',
-                success: function (data) {
-                    html = '<li>'+data.message+'</li>';
-                    $(".alert-danger").html(html).show();
-                }
-            });
-        })
+            }
+
+          )
+        }
 
 
+      });
 
 })

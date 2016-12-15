@@ -37,12 +37,31 @@
                           </div>
                       @else
                           <div class="col s12">
-                              <div class="col s6 btn red white-text font-pattern2 truncate">
-                                  interested
-                              </div>
-                              <div class="truncate col s6 btn blue white-text font-pattern2">
-                                  follow
-                              </div>
+                            <meta name="csrf-token" content="{{ csrf_token()}}">
+                              @if($interested==true)
+                                <div class="col s6 btn red white-text font-pattern2 truncate" id="interested">
+                                    uninterested
+                                </div>
+                                <input id="interestedIn" type="hidden" value="{{$profile['username']}}">
+                              @else
+                                <div class="col s6 btn red white-text font-pattern2 truncate" id="interested">
+                                    interested
+                                </div>
+                                <input id="interestedIn" type="hidden" value="{{$profile['username']}}">
+                              @endif
+                              
+                              @if ($followed==true)
+                                <div class="truncate col s6 btn blue white-text font-pattern2" id="follow">
+                                    unfollow
+                                </div>
+                                <input id="followIn" type="hidden" value="{{$profile['username']}}">
+                              @else
+                                <div class="truncate col s6 btn blue white-text font-pattern2" id="follow">
+                                    follow
+                                </div>
+                                <input id="followIn" type="hidden" value="{{$profile['username']}}">
+                              @endif
+
                           </div>
 
                       @endif

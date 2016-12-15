@@ -4,7 +4,7 @@
     <body>
         <div>
             @include('layouts.partials.nav')
-            <div>
+            <div class="mycontainer">
                 <div class="row">
                     <div class="col s12 m3 hide-on-small-only">
                         @include('feed.partials.userview')
