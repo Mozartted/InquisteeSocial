@@ -5,7 +5,7 @@
     <li class="divider"></li>
     <li><a href="{{url('/logout')}}">Logout</a></li>
 </ul>
-<div class="col s12 m5 float-search">
+{{-- <div class="col s12 m5 float-search">
     <div class="card">
         <div class="card-content">
             <div class="col s12" style="min-height:72px">
@@ -22,7 +22,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <nav class="nav-wrapper" style="">
 

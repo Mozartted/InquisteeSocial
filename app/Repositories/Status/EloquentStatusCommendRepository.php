@@ -40,7 +40,7 @@ class EloquentStatusCommendRepository implements StatusCommendRepository
         // TODO: Implement getStatusAndCommendsLeaderUser() method.
         // gets the status and commends of a particular user and his
         // leaders ordered according to timestamps.
-        $leaderUserIds=$user->leaders->pluck('leaders');
+        $leaderUserIds=$user->leaders->pluck('id');
         $leaderUserIds[]=$user->id;
         $CommendsCollection=Commend::whereIn('user_id',$leaderUserIds)->get();
         $statusIdFromCommends=$CommendsCollection->pluck('status_id');

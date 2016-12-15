@@ -9,3 +9,4 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jqu‌​ery-ui.min.js"></script>
 <script src="script/materialize.js"></script>
 <script src="js/app.js"></script>
+<script src="script/jquery.autocomplete.js"></script>

@@ -6,7 +6,7 @@
     <body>
         <div>
             @include('layouts.partials.nav')
-      <div>
+      <div class="mycontainer">
           <div class="row ">
               <div class="col s12 m9">
                     @include('users.partials.cover')
@@ -108,6 +108,34 @@
 
                             </div>
                         </div>
+
+                    </div>
+                    <div class="col s12" id="test3">
+
+                      <div class="col s12">
+                        <div class="card sections">
+                          <div class="card-header grey darken-3 white-text padding-5">
+                              <div class="card-title"><span>Followers</span></div>
+                          </div>
+                          <div class="card-content">
+                            @include('users.partials.followers')
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="col s12" id="test4">
+
+                      <div class="col s12">
+                        <div class="card sections">
+                          <div class="card-header grey darken-3 white-text padding-5">
+                              <div class="card-title"><span>Following</span></div>
+                          </div>
+                          <div class="card-content">
+                            @include('users.partials.leaders')
+                          </div>
+                        </div>
+                      </div>
 
                     </div>
 

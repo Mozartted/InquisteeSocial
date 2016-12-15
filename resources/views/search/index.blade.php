@@ -17,7 +17,7 @@
                                   <div class="col s12" id="profile">
                                       <div class="input-field">
 
-                                          <input id="searchh" type="text" name="search-term" />
+                                          <input id="searchh" type="text" name="search-term" autocomplete="on"/>
                                           <label for="searchh">
                                               Enter Your Search Term
                                           </label>
@@ -73,5 +73,5 @@
       </div>
     </div>
     </body>
-
+    @include('layouts.partials.scripts')
 @endsection
