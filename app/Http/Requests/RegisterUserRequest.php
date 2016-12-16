@@ -30,7 +30,7 @@ class RegisterUserRequest extends FormRequest
             'firstname'				=>	'required|min:2|alpha',
             'lastname'				=>	'required|min:2|alpha',
             'email'					=> 	'required|email|unique:users',
-            'username'              =>  'required|alpha|alpha_num|unique:users',
+            'username'              =>  'required|alpha_num|unique:users',
             'password'				=>	'required|confirmed|between:4,12',
             'password_confirmation'	=> 	'required',
             'gender'				=>	'required|alpha',

@@ -4,6 +4,7 @@
     <body>
         <div>
             @include('layouts.partials.nav')
+            <meta name="csrf-token" content="{{ csrf_token()}}">
             <div class="mycontainer">
                 <div class="row">
                     <div class="col s12 m3 hide-on-small-only">
@@ -19,6 +20,8 @@
                 </div>
             </div>
         </div>
+        @include('feed.partials.commendSection')
     </body>
+    @include('layouts.partials.scripts')
 
 @endsection
