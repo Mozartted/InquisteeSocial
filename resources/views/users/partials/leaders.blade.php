@@ -3,7 +3,9 @@
     <div class="col s4 m6">
       <div class="card sections">
         <div class="card-image">
-          <img src="{{ asset($leader->profile->profileMedia->url) }}" style="object-fit: cover;">
+          @if (isset($leader->profile->profileMedia->url))
+            <img src="{{ asset($leader->profile->profileMedia->url) }}" style="object-fit: cover;">
+          @endif
           <span class="card-title">{{ $leader->profile->first_name.' '.$leader->profile->last_name }}</span>
         </div>
         <div class="card-content">

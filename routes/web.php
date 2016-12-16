@@ -143,7 +143,7 @@ Route::group(['prefix'=>'ajax','middleware'=>'auth'], function(){
     Route::put('/vote/{status}',['as'=>'vote_path','uses'=>'StatusFeedController@vote']);
 
     //this section is a json response route for the commend functionality
-    Route::put('/commend/{status}',['as'=>'commend','uses'=>'StatusFeedController@commend']);
+    Route::post('/commend',['as'=>'commend','uses'=>'StatusFeedController@commend']);
 
     /*
     |--------------------------------------------------------------------------

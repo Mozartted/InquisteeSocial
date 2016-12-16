@@ -28,7 +28,10 @@
             <div class="card-content row" style="padding-left:2px;">
                 <div class="col s12 row margin-min-10">
                     <div class="col s2">
+                      @if(isset($stat->owner->profile->profileMedia->url))
                         <img src="{{$stat->owner->profile->profileMedia->url}}" class="feed-img-status circle">
+                      @endif
+
                     </div>
                     <div class="col s10">
                         <p class="username-text" style="color:#757575;">{{$stat->owner->profile->first_name.' '.$stat->owner->profile->last_name}} </p>

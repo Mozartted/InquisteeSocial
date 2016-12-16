@@ -14,7 +14,7 @@
                           @if(isset($profile['profile_pic']))
                               <img src="{{asset($profile['profile_pic']->url)}}" class="circle" style="height: 100px; width: 100px; border-radius:50%; margin:auto ">
                           @else
-                              <img src="{{asset($profile['profile_pic']->url)}}" class="circle" style="height: 100px; width: 100px; border-radius:50%; margin:auto ">
+                              
                           @endif
 
                       </div>
@@ -39,24 +39,24 @@
                           <div class="col s12">
                             <meta name="csrf-token" content="{{ csrf_token()}}">
                               @if($interested==true)
-                                <div class="col s6 btn red white-text font-pattern2 truncate" id="interested">
+                                <div class="col s6 btn red white-text font-pattern2 truncate" id="interested" data-interest-stat="uninterested">
                                     uninterested
                                 </div>
                                 <input id="interestedIn" type="hidden" value="{{$profile['username']}}">
                               @else
-                                <div class="col s6 btn red white-text font-pattern2 truncate" id="interested">
+                                <div class="col s6 btn red white-text font-pattern2 truncate" id="interested" data-follow-stat="interested">
                                     interested
                                 </div>
                                 <input id="interestedIn" type="hidden" value="{{$profile['username']}}">
                               @endif
-                              
+
                               @if ($followed==true)
-                                <div class="truncate col s6 btn blue white-text font-pattern2" id="follow">
+                                <div class="truncate col s6 btn blue white-text font-pattern2" id="follow" data-follow-stat="unfollow">
                                     unfollow
                                 </div>
                                 <input id="followIn" type="hidden" value="{{$profile['username']}}">
                               @else
-                                <div class="truncate col s6 btn blue white-text font-pattern2" id="follow">
+                                <div class="truncate col s6 btn blue white-text font-pattern2" id="follow" data-follow-stat="follow">
                                     follow
                                 </div>
                                 <input id="followIn" type="hidden" value="{{$profile['username']}}">
