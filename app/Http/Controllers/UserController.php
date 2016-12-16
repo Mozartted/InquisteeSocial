@@ -39,16 +39,16 @@ class UserController extends Controller
         $followers=$userrepository->getPaginatedFollowers($user,20);
         $following=$userrepository->getPaginatedLeadersid($user,20);
         //collecting the users posts
-        if(Auth::user()->leaders()->where('leader',$user->id)){
-          $followed=true;
-        }else{
+        if((Auth::user()->leaders()->where('leader',$user->id)->get()->isEmpty())){
           $followed=false;
+        }else{
+          $followed=true;
         }
 
-        if(Auth::user()->interestedIn()->where('leader',$user->id)){
-          $followed=true;
+        if((Auth::user()->interestedIn()->where('subject',$user->id)->get())->isEmpty()){
+          $interested=false;
         }else{
-          $followed=false;
+          $finterested=true;
         }
 
         return view('users.index',[
@@ -169,10 +169,16 @@ class UserController extends Controller
     public function unfollow(Request $request){
         //destroying the relationship between Auth and his leader
         $userMe=Auth::user();
-        $badLeader=$userMe->leader()->where('leader',$user->id);
-        $badLeader->forceDelete();
 
-        return response()->json(true);
+        $user= User::where('username',$request->Username)->first();
+
+        if($userMe->leaders()->detach($user)){
+          $message="follow";
+          return response()->json(['message'=>$message]);
+        }else {
+          $message="unfollow";
+          return response()->json();
+        }
     }
 
     public function interested(User $user){
