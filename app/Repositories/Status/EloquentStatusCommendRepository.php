@@ -46,7 +46,7 @@ class EloquentStatusCommendRepository implements StatusCommendRepository
         $statusIdFromCommends=$CommendsCollection->pluck('status_id');
         $StatusCollection=Status::whereIn('user_id',$leaderUserIds)->union(Status::whereIn('id',$statusIdFromCommends))->orderBy('id', 'desc')->take(10)->get();
 
-        return $all=['Status'=>$StatusCollection,'Commend'=>$statusIdFromCommends];
+        return $all=['Status'=>$StatusCollection,'Commend'=>$CommendsCollection];
 
     }
 

@@ -62,15 +62,13 @@ class StatusFeedController extends Controller
 
             $urlAndExtension[$media->id]=['description'=>$media['url']];
 
-        }else{
-            return response()->json(false);
         }
 
         $status->media()->attach(
             $urlAndExtension
         );
 
-        return response()->json(true);
+        return redirect('/');
     }
 
     public function more(Request $request, StatusCommendRepository $statusStuff ){
@@ -81,7 +79,7 @@ class StatusFeedController extends Controller
         ]);
     }
 
-    public function commend(Request $request,Status $id){
+    public function commend(Request $request){
         /*
         |----------------------------------------------------
         | Making a Commend
@@ -97,16 +95,37 @@ class StatusFeedController extends Controller
         |       adding the notification to database.
         |
         */
-        $id->commends()->create(
-            [
-                'commend'=>$request['commend'],
-                'user_id'=>Auth::user()->id,
-            ]
-        );
+        // $id->commends()->create(
+        //     [
+        //         'commend'=>$request['commend'],
+        //         'user_id'=>Auth::user()->id,
+        //     ]
+        // );
+        //
+        // return response()->json(
+        //     ['commend_count'=>count(Commend::where('status_id',$id->id))]
+        // );
+        $commendMessage=$request->message;
+        $commendedStatus=$request->status_id;
 
-        return response()->json(
-            ['commend_count'=>count(Commend::where('status_id',$id->id))]
-        );
+        //create a new commend using the status_id;
+        $commended=new Commend([
+          'status_id'=>$commendedStatus,
+          'user_id'=>Auth::user()->id,
+          'commend'=>$commendMessage
+        ]);
+
+        if($commended->save()){
+          return response()->json([
+            'message'=>'Status was successfully commended',
+          ]);
+        }else{
+          return response()->json(
+            [
+              'message'=>'Commend had an issue please try again later'
+            ]
+          );
+        }
 
 
     }
