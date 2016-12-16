@@ -169,7 +169,7 @@ $( document ).ready(function(){
           }
         );
 
-        if($('#follow').text()=="follow"){
+        if($(this).attr('data-follow-stat')=="follow"){
           $.ajax(
             {
               url:'ajax/follow',
@@ -181,7 +181,8 @@ $( document ).ready(function(){
               success:function(data){
                 if(data.message=="unfollow"){
                   var response=data.message;
-                  $('#follow').text(response);
+                  $('#follow').html(response);
+                  $('#follow').attr('data-follow-stat',response);
                 }else{
                   html = '<li>'+'follower mechanism not functional'+'</li>';
                   $(".alert-danger").html(html).show();
@@ -195,7 +196,7 @@ $( document ).ready(function(){
             }
 
           );
-        }else{
+        }else if($(this).attr('data-follow-stat')=="unfollow"){
           $.ajax(
             {
               url:'ajax/unfollow',
@@ -208,6 +209,7 @@ $( document ).ready(function(){
                 if(data.message=="follow"){
                   var response=data.message;
                   $('#follow').text(response);
+                  $('#follow').attr('data-follow-stat',response);
                 }else{
                   html = '<li>'+'follower mechanism not functional'+'</li>';
                   $(".alert-danger").html(html).show();
@@ -224,6 +226,57 @@ $( document ).ready(function(){
         }
 
 
+      });
+
+      $('.commend').click(function(){
+        $('#commendMessage').val(' ');
+        $('#status-commend').attr('data-id',$(this).attr('data-id'))//this is the status id
+        $('#status-commend').attr('data-status',$(this).attr('data-status'));//if the status had already been commended
+      });
+
+
+      //function set to handle commending postStatus
+      $('#status-commend').click(function(){
+        var commendStatus=$(this).attr('data-status');
+        var statusId=$(this).attr('data-id');
+        var url='ajax/commend';
+        var commendMessage=$('#commendMessage').val();
+
+        if(commendStatus!=true){
+          //if the status has not
+          //been already commended
+          //by the current username
+          //make the commend via ajax
+          $.ajaxSetup({
+            headers:{
+              'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+          });
+
+          $.ajax(
+            {
+              url:url,
+              type:'POST',
+              data:{
+                status_id:statusId,
+                message:commendMessage
+              },
+              dataType:'json',
+              success:function(data){
+                var html="<li>"+data.message+"</li>";
+                $('#alert-notifier').html(html);
+              },
+
+              error:function(){
+                var html="<li>Something went Wrong please try agin later</li>";
+                $('#alert-notifier').html(html);
+              }
+            }
+
+          )
+
+
+        }
       });
 
 })

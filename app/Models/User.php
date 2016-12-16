@@ -38,6 +38,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Status');
     }
 
+    public function commends(){
+      return $this->hasMany('App\Models\Commend');
+    }
+
     public function loves(){
         return $this->hasMany('App\Models\Love');
     }
