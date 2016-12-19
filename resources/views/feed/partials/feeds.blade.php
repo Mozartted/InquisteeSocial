@@ -40,12 +40,12 @@
                     @if (isset($stat->owner->profile->profileMedia->url))
                       <img src="{{$stat->owner->profile->profileMedia->url}}" class="feed-img-status circle">
                     @else
-                      <img src="" class="feed-img-status circle">
+                      <img src="images/profileimages/icon-user-default.png" class="feed-img-status circle">
                     @endif
                   </div>
                   <div class="col s10">
                     <p class="username-text" style="color:#757575;">{{$stat->owner->profile->first_name.' '.$stat->owner->profile->last_name}} </p>
-                      <small>{{$stat->owner->username}}</small>
+                      <small><a href="{{ url($stat->owner->username) }}">{{$stat->owner->username}}</a></small>
                       <small>{{$stat->created_at->diffForHumans()}}</small>
                   </div>
                 </div>
@@ -92,13 +92,13 @@
                           @if (isset($stat->owner->profile->profileMedia->url))
                               <img src="{{$stat->owner->profile->profileMedia->url}}" class="feed-img-status circle">
                           @else
-                              <img src="" class="feed-img-status circle">
+                              <img src="images/profileimages/icon-user-default.png" class="feed-img-status circle">
                           @endif
 
                       </div>
                       <div class="col s10">
                           <p class="username-text" style="color:#757575;">{{$stat->owner->profile->first_name.' '.$stat->owner->profile->last_name}} </p>
-                          <small>{{$stat->owner->username}}</small>
+                          <small><a href="{{ url($stat->owner->username) }}">{{$stat->owner->username}}</a></small>
                           <small>{{$stat->created_at->diffForHumans()}}</small>
                       </div>
                   </div>

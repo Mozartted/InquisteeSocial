@@ -2,9 +2,9 @@
 <div class="card sections" style="width:100%">
     <div class="card-image cover-row" style="height:300px">
         @if(isset($profile['cover_pic']))
-            <img class="status-img" src="{{asset($profile['cover_pic']->url)}}" style="height:inherit">
+            <img class="status-img" src="{{asset($profile['cover_pic']->url)}}" style="height:inherit; object-fit: cover;">
         @else
-            <img class="status-img" src="images/cover/cover.jpg" style="height:inherit">
+            <img class="status-img" src="images/cover/cover.jpg" style="height:inherit; object-fit: cover;">
         @endif
 
          <div class="card-title col s12 m6" style="">
@@ -14,7 +14,7 @@
                           @if(isset($profile['profile_pic']))
                               <img src="{{asset($profile['profile_pic']->url)}}" class="circle" style="height: 100px; width: 100px; border-radius:50%; margin:auto ">
                           @else
-                              
+                              <img src="images/profileimages/icon-user-default.png" class="circle" style="height: 100px; width: 100px; border-radius:50%; margin:auto ">
                           @endif
 
                       </div>

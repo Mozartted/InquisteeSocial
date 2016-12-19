@@ -93,7 +93,7 @@
                                     							        		'10' => '10',
                                     							        		'11' => '11',
                                     							        		'12' => '12'], 01, ['class' => 'form-control', 'id' => 'month'])!!}
-                                                                <label>Month</label>
+                                                                <label></label>
                                     						</div>
                                     					</div>
                                     					<div class="col s3">
@@ -132,7 +132,7 @@
                                     								        		'30' => '30',
                                     								        		'31' => '31'
                                     								       ], 01, ['id' => 'day','class' => 'form-control']) !!}
-                                                                           <label>Day</label>
+                                                                           <label></label>
                                     						</div>
                                     						</div>
                                     						<div class="col s4">

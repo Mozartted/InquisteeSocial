@@ -52,10 +52,15 @@ class ProcessImage
         return $path.$filename;
     }
 
-    public function saveCoverPic($file, $path="images/status/",$width,$height){
-        $filename = $this->rename($file);
-        Image::make($file)->resize($width, $height)->save($path.$filename);
-        return $path.$filename;
+    public function saveCoverAjax($data, $path="images/cover/"){
+      $filename = $this->renameBase64();
+
+      list($type, $data) = explode(';', $data);
+      list(, $data)      = explode(',', $data);
+      $data = base64_decode($data);
+
+      file_put_contents($path.$filename.'.png', $data);
+      return $path.$filename.'.png';
     }
 
     public function getExtension($file){

@@ -2,7 +2,7 @@
     <div class="card-content">
         <div class="col s12 center-align">
             @if(empty(Auth::user()->profile->profileMedia->url))
-                <img src="{{asset('images/profile/myAvatar.png')}}" class="feed-img responsive-img circle">
+                <img src="images/profileimages/icon-user-default.png" class="feed-img responsive-img circle">
             @else
                 <img src="{{asset(Auth::user()->profile->profileMedia->url)}}" class="feed-img responsive-img circle">
             @endif

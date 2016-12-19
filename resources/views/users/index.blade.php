@@ -63,32 +63,7 @@
 
                             </div>
                             <div class="card sections">
-                                <div class="card-header blue darken-3 white-text padding-5">
-                                    <div class="card-title"><span>Photos</span></div>
-                                </div>
-                                <div class="card-content">
-                                    <div>
-                                        <div class="pics">
-                                            <div class="photo">
-                                                <img src="images/forest-patrol.jpg" class="photo-thumbs"/>
-                                            </div>
-                                            <div class="photo">
-                                                <img src="images/forest-patrol.jpg" class="photo-thumbs"/>
-                                            </div>
-                                            <div class="photo">
-                                                <img src="images/forest-patrol.jpg" class="photo-thumbs"/>
-                                            </div>
-                                            <div class="photo">
-                                                <img src="images/forest-patrol.jpg" class="photo-thumbs"/>
-                                            </div>
-                                            <div class="photo">
-                                                <img src="images/forest-patrol.jpg" class="photo-thumbs"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
+                                @include('users.partials.pics')
                             </div>
                             <div class="card sections">
                                 <div class="card-header red darken-3 white-text padding-5">

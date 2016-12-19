@@ -49,7 +49,7 @@
                                 <div class="log-section input-field right">
                                     <div class="log-image row">
                                         @if(empty(Auth::user()->profile->profileMedia->url))
-                                            <div class="col s2  dropdown-button" data-activates="dropdown1" ><img class="circle" src="{{asset('images/profile/myAvatar.png')}}"/></div>
+                                            <div class="col s2  dropdown-button" data-activates="dropdown1" ><img class="circle" src="images/profileimages/icon-user-default.png"/></div>
                                         @else
                                             <div class="col s2  dropdown-button" data-activates="dropdown1"><img class="circle" src="{{asset(Auth::user()->profile->profileMedia->url)}}"/></div>
                                         @endif

@@ -4,15 +4,17 @@
     </div>
     <div class="card-content">
         <div class="col s12 story">
-            <div class="font-pattern2">I believe firmly that knowledge is power, and ability to create is the ability to grow</div>
+          @if (isset($profile['about']))
+            <div class="font-pattern2">{{ $profile['about'] }}</div>
+          @endif
         </div>
         <div class="col s12 story">
             <div>
-                <div class="bold-text">Achievments</div>
+                <div class="bold-text">Education</div>
                 <ul class="font-pattern2">
-                    <li>A Student of Futo</li>
-                    <li>An OpenSource Software Developer</li>
-                    <li>Former Sug Governor</li>
+                  @foreach ($profile['schools'] as $school)
+                    <li>{{ $school->name.' '.(new \Carbon\Carbon($school->pivot->admission))->year.'  -  '.(new \Carbon\Carbon($school->pivot->graduation))->year}}</li>
+                  @endforeach
                 </ul>
             </div>
 

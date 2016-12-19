@@ -22,9 +22,9 @@ Route::get('/welcome',['as'=>'registration_path','uses'=>'RegistrationController
 Route::post('/welcome',['as'=>'registration_path','uses'=>'RegistrationController@store']);
 Route::get('steps-register',['as'=>'register-steps','middleware'=>'auth','uses'=>'RegistrationController@steps']);
 Route::post('steps-register/pic',['as'=>'register-pic','middleware'=>'auth','uses'=>'RegistrationController@pic']);
-Route::post('steps-register/deatils',['as'=>'register-deatils','middleware'=>'auth','uses'=>'RegistrationController@details']);
-
-
+Route::post('steps-register/details',['as'=>'register-deatils','middleware'=>'auth','uses'=>'RegistrationController@details']);
+Route::post('steps-register/description',['as'=>'register-profile','middleware'=>'auth','uses'=>'RegistrationController@descriptions']);
+Route::post('steps-register/coverpic',['as'=>'register-coverpic','middleware'=>'auth','uses'=>'RegistrationController@coverpic']);
 
 /*
 |--------------------------------------------------------------------------

@@ -8,7 +8,6 @@
 
 namespace App\Repositories\Profiles;
 
-
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -44,7 +43,10 @@ class EloquentProfilesRepository implements ProfilesRepository
         //get all information including likes for a current user
         //to facilitate the usage of the json form, we return the
         //data in an array.
+
+
         $profile=$user->profile;
+
         $userInfo=[
             'id'=>$user->id,
             'username'=>$user->username,
@@ -53,10 +55,13 @@ class EloquentProfilesRepository implements ProfilesRepository
             'birthday'=>$profile->birthday,
             'likes_movies'=>$profile->like,
             'gender'=>$profile->gender,
-            'cover_pic'=>$profile->cover_pic,
+            'cover_pic'=>$profile->coverPic,
             'profile_pic'=>$profile->profileMedia,
             'about'=>$profile->about,
+            'schools'=>$profile->schools,
             'joined'=>$profile->created_at,
+            'email'=>$user->email,
+            'pictures'=>$profile->media()->get()
         ];
 
 

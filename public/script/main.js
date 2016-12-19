@@ -1,5 +1,13 @@
 $( document ).ready(function(){
 
+  $body = $("body");
+
+$(document).on({
+  ajaxStart: function() { $body.addClass("loading");    },
+   ajaxStop: function() { $body.removeClass("loading"); }
+});
+
+
     $('.modal').modal(
 
     );
@@ -13,11 +21,11 @@ $( document ).ready(function(){
     $(".dropdown-button").dropdown(
 
         {
-            inDuration: 300,
-      outDuration: 225,
-      constrain_width: false, // Does not change width of dropdown to that of the activator
-      hover: true, // Activate on hover
-      gutter: 0
+          inDuration: 300,
+          outDuration: 225,
+          constrain_width: false, // Does not change width of dropdown to that of the activator
+          hover: true, // Activate on hover
+          gutter: 0
         }
     );
 
@@ -50,15 +58,15 @@ $( document ).ready(function(){
 
     //custom tab sectioning for message view
     $('div.tabbed div').click(function(){
-		var tab_id = $(this).attr('data-tab');
+		    var tab_id = $(this).attr('data-tab');
 
-		$('div.tabbed div').removeClass('active');
-		$('.tab-content').removeClass('active');
+		      $('div.tabbed div').removeClass('active');
+		        $('.tab-content').removeClass('active');
 
-		$(this).addClass('active');
-		$("#"+tab_id).addClass('active');
+		          $(this).addClass('active');
+		            $("#"+tab_id).addClass('active');
 
-	});
+	  });
 
 	$('.tab').click(function(){
 		$(".alert-danger").hide().html().remove();
@@ -95,7 +103,7 @@ $( document ).ready(function(){
 			viewport: {
 				width: 200,
 				height: 200,
-				type: 'circle'
+				type: 'square'
 			},
             boundary: {
                 width: 300,
@@ -106,6 +114,9 @@ $( document ).ready(function(){
 
 		$('#uploading').on('change', function () { readFile(this.files[0]); });
 		$('.upload-result').on('click', function (ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+
 			$uploadCrop.croppie('result', {
 				type: 'canvas',
 				size: 'original'
@@ -131,30 +142,6 @@ $( document ).ready(function(){
 
 			//function that changes the tab to the next
 		});
-
-
-    $('#upload_details').on('click',function(){
-          var details={
-              about:$('#description').val(),
-              location:$('#place').val()
-          }
-          $.ajaxSetup({
-              headers: {
-                   'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-              }
-          });
-          $.ajax(
-              {
-              url: 'steps-register/details',
-              type: 'POST',
-              data: details,
-              dataType:'json',
-              success: function (data) {
-                  html = '<li>'+data.message+'</li>';
-                  $(".alert-danger").html(html).show();
-              }
-          });
-      });
 
       //the click handler for follow button
       $('#follow').on('click',function(){
@@ -278,5 +265,132 @@ $( document ).ready(function(){
 
         }
       });
+
+      $('#completed').click(function(){
+          if($(this).attr('data-func-status')=="complete"){
+            window.location.replace("/");
+          }else if($(this).attr('data-func-status')=="next"){
+            $('div.tabbed div').removeClass('active');
+            $('#profile-tab').addClass('active');
+
+            $('.tab-content').removeClass('active');
+            $('#profile').addClass('active');
+
+            var html='<i class="material-icons">send</i>Complete';
+            $(this).html(html);
+            $(this).attr('data-func-status','complete');
+          }
+      });
+
+
+      $('#upload_details').click(function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+            var details={
+                about:$('#description').val(),
+                school:$('#place').val(),
+                admission:{
+                    admissionday:$('#adday').val(),
+                    admissionmonth:$('#admonth').val(),
+                    admissionyear:$('#adyear').val()
+                },
+                graduation:{
+                    graduationday:$('#gdday').val(),
+                    graduationmonth:$('#gdmonth').val(),
+                    graduationyear:$('#gdyear').val()
+                }
+            };
+
+            $.ajaxSetup({
+                headers: {
+                     'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax(
+                {
+                url: 'steps-register/details',
+                type: 'POST',
+                data: details,
+                dataType:'json',
+                success: function (data) {
+                    html = '<li>'+data.message+'</li>';
+                    $(".alert-danger").html(html).show();
+                }
+            });
+        });
+
+
+//profile edit systems and functionalities
+//updating cover pics
+var $uploadCover;
+
+function readFileCover(input) {
+  if (input){
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+      $('.upload-demo').addClass('ready');
+            $uploadCover.croppie('bind', {
+              url: e.target.result
+            }).then(function(){
+              console.log('jQuery bind complete');
+            });
+
+          }
+
+          reader.readAsDataURL(input);
+      }
+      else {
+        swal("Sorry - you're browser doesn't support the FileReader API");
+    }
+}
+
+$uploadCover = $('#upload-cover').croppie({
+  viewport: {
+    width: 500,
+    height: 300,
+    type: 'square'
+  },
+        boundary: {
+            width: 600,
+            height: 350
+        },
+  enableExif: true
+});
+
+$('#uploadCoverInput').on('change', function () { readFileCover(this.files[0]); });
+$('.upload-cover').on('click', function (ev) {
+  ev.preventDefault();
+  ev.stopPropagation();
+
+  $uploadCover.croppie('result', {
+    type: 'canvas',
+    size: 'original'
+  }).then(function (resp) {
+            $.ajaxSetup({
+                headers: {
+                     'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+    $.ajax(
+                {
+                url: 'steps-register/coverpic',
+            type: 'POST',
+            data: {'image':resp},
+                dataType:'json',
+          success: function (data) {
+        html = '<li>'+data.message+'</li>';
+        $(".alert-danger").html(html).show();
+                }
+            });
+  });
+
+  //function that changes the tab to the next
+});
+
+
+
 
 })

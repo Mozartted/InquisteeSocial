@@ -15,7 +15,19 @@
                       </div>
                       <div class="card-action sections">
                           <div class="col s12 nav-extended">
-                              <ul class="tabs tabs-transparent">
+                            <div class="tabbed tabbbed-header">
+                              <div data-tab="upload" class="active" id="upload-tab">
+                                <span class="profile-menu-icon">
+                                  Upload Profile Pic
+                                </span>
+                              </div>
+                              <div data-tab="profile" id="profile-tab">
+                                <span class="profile-menu-icon">
+                                  Update Profile
+                                </span>
+                              </div>
+                            </div>
+                              {{-- <ul class="tabs tabs-transparent">
                                   <li class="tab"><a  class="active" href="#upload">
                                       <span class="profile-menu-icon">
                                        Upload Profile Pic
@@ -25,7 +37,7 @@
                                        Update Profile
                                   </span></a></li>
 
-                              </ul>
+                              </ul> --}}
                           </div>
                       </div>
                       <div class="card-content sections">
@@ -33,27 +45,11 @@
 
                           </div>
                          <form>
-                             <div class="col s12" id="profile">
+                             <div class="col s12 tab-content" id="profile" style="max-height:700px">
                                  <meta name="csrf-token" content="{{ csrf_token()}}">
-                                 <div class="input-field">
-                                     <label for="description">
-                                         Describ Yourself, There's enough time
-                                     </label>
-                                     <textarea name="about" id="description" class="materialize-textarea"></textarea>
-                                 </div>
-
-                                 <div class="input-field">
-                                     <label for="place">
-                                         Where are you from?
-                                     </label>
-                                     <textarea name="location" id="place" class="materialize-textarea"></textarea>
-                                 </div>
-
-                                 <div class="input-field">
-                                     <button class="waves-effect waves-light btn" id="upload_details"></button>
-                                 </div>
+                                 @include('registration.partials.detailed')
                              </div>
-                             <div class="col s12" id="upload">
+                             <div class="col s12 tab-content active" id="upload" style="max-height:700px">
                                  <div class="col s12">
                                      <span class="header_medium color-grey">Upload A Profile Picture</span>
                                  </div>
@@ -85,7 +81,7 @@
                       </div>
                       <div class="card-action sections">
                           <div class="input-field right">
-                              <button class="waves-effect waves-light btn"><i class="material-icons">send</i></button>
+                              <button class="waves-effect waves-light btn" id="completed" data-func-status="next"><i class="material-icons">send</i>Next</button>
                           </div>
                       </div>
                   </div>
@@ -95,6 +91,7 @@
       </div>
     </div>
     </body>
+    @include('registration.partials.loadingMode')
     @include('layouts.partials.scripts')
 
 @endsection

@@ -10,6 +10,7 @@ use App\Http\Requests\RegisterUserRequest;
 use App\Jobs\CreateUserJob;
 use Carbon\Carbon;
 use App\Models\Media;
+use App\Models\School;
 use Auth;
 
 
@@ -87,8 +88,6 @@ class RegistrationController extends Controller
         if($req->ajax()){
             $data=$req->image;
 
-
-
             $profileUrl=(new ProcessImage())->saveProfileAjax($data, 'images/profileimages/');
 
             $media=new Media([
@@ -100,12 +99,12 @@ class RegistrationController extends Controller
 
             if(Auth::user()->profile->profileMedia()->associate($media)){
                 Auth::user()->profile->save();
-                return Response::json(
-                    ['message'=>"completed"]
+                return response()->json(
+                    ['message'=>"completed click next to move to the next step"]
                 );
             }
             else {
-                return Response::json(['message'=>'not uploaded']);
+                return response()->json(['message'=>'not uploaded']);
             }
 
         }
@@ -114,18 +113,108 @@ class RegistrationController extends Controller
     }
 
     public function details(Request $req){
-        $profile=Auth::user()-profile;
+        $profile=Auth::user()->profile;
+
+        $Admission =Carbon::createFromDate($req->admission['admissionyear'], $req->admission['admissionmonth'], $req->admission['admissionday']);
+        $Graduation =Carbon::createFromDate($req['graduationyear'], $req->graduation['graduationmonth'], $req->graduation['graduationday']);
+
+        $aDandGrad=[];
         if($profile){
             $profile->about=$req->about;
+            $school=School::where('name',$req->school)->first();
+            if(isset($school)){//checking if the school exist, if true
 
-            return Response::json(
-                ['message'=>'Profile Updated completed']
-            );
+              if(!isset(($profile->schools->where('school_id',$school->id)->first())->id)){
+                //checking if the school is already attached to the curent user
+                $aDandGrad[$school->id]=['admission'=>$Admission,'graduation'=>$Graduation];
+
+                $profile->schools()->attach($aDandGrad);
+
+                $profile->save();
+
+                return response()->json(
+                    ['message'=>'Profile Created completed click complete to enter home']
+                );
+
+              }else{
+                $aDandGrad=['admission'=>$Admission,'graduation'=>$Graduation];
+
+                $profile->schools()->updateExistingPivot(
+                    $school->id,
+                    $aDandGrad
+                  );
+
+                  $profile->save();
+
+                  return response()->json(
+                      ['message'=>'Profile Updated completed click complete to enter home']
+                  );
+              }
+
+
+
+
+            }else{
+              $school=new School([
+                'name'=>$req->school,
+              ]);
+
+              $school->save();
+
+              $aDandGrad[$school->id]=['admission'=>$Admission,'graduation'=>$Graduation];
+
+              $profile->schools()->attach(
+                  $aDandGrad
+              );
+
+              $profile->save();
+
+              return response()->json(
+                  ['message'=>'Profile Created completed click complete to enter home']
+              );
+            }
+
         }else {
-            return Response::json(
+            return response()->json(
                 ['message'=> 'Profile Couldn\'nt be updated']
             );
         }
 
     }
+
+
+    //controller for cover picture setup
+    public function coverpic(Request $req){
+      if($req->ajax()){
+          $data=$req->image;
+
+          $profileUrl=(new ProcessImage())->saveCoverAjax($data, 'images/cover/');
+
+          $media=new Media([
+              'type'=>'png',
+              'url'=>$profileUrl
+          ]);
+
+          Auth::user()->profile->media()->save($media);
+
+          if(Auth::user()->profile->coverPic()->associate($media)){
+              Auth::user()->profile->save();
+              return response()->json(
+                  ['message'=>"completed click next to move to the next step"]
+              );
+          }
+          else {
+              return response()->json(['message'=>'not uploaded']);
+          }
+
+      }
+
+    }
+    // public function descriptions(Request $request){
+    //   $profile=Auth::user()-profile;
+    //
+    //   if($profile){
+    //
+    //   }
+    // }
 }
