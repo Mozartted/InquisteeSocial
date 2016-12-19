@@ -19,6 +19,6 @@ class Media extends Model
     }
 
     public function status(){
-        return $this->belongsToMany('App\Models\Media','status_media','media_id','status_id');
+        return $this->belongsToMany('App\Models\Media','status_media','media_id','status_id')->withTimestamps();
     }
 }

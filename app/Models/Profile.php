@@ -33,17 +33,15 @@ class Profile extends Model
     }
 
     public function schools(){
-        return $this->belongsToMany('App\Models\School','profile_school','profiles_id','school_id');
+        return $this->belongsToMany('App\Models\School','profile_school','profiles_id','school_id')->withPivot('admission','graduation');
     }
 
     public function profileMedia(){
         return $this->belongsTo('App\Models\Media','profile_pic');
     }
 
-    public function cover_pic(){
+    public function coverPic(){
         return $this->belongsTo('App\Models\Media','cover_pic');
     }
-
-
 
 }
