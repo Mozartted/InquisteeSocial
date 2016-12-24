@@ -1,12 +1,8 @@
 # InquisteeSocial
 
-[![Latest Stable Version](https://poser.pugx.org/unicodeveloper/laravel-wikipedia/v/stable.svg)](https://packagist.org/packages/unicodeveloper/laravel-wikipedia)
 ![](https://img.shields.io/badge/mozartted-approved-blue.svg)
 [![License](https://poser.pugx.org/unicodeveloper/laravel-wikipedia/license.svg)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/unicodeveloper/laravel-wikipedia.svg)](https://travis-ci.org/unicodeveloper/laravel-wikipedia)
-[![Build Status](https://img.shields.io/travis/andela-kerinoso/laravel-wikipedia.svg)](https://travis-ci.org/andela-kerinoso/laravel-wikipedia)
-[![Quality Score](https://img.shields.io/scrutinizer/g/unicodeveloper/laravel-wikipedia.svg?style=flat-square)](https://scrutinizer-ci.com/g/unicodeveloper/laravel-wikipedia)
-[![Total Downloads](https://img.shields.io/packagist/dt/unicodeveloper/laravel-wikipedia.svg?style=flat-square)](https://packagist.org/packages/unicodeveloper/laravel-wikipedia)
+[![Fork](https://img.shields.io/github/forks/badges/shields.svg?style=social&label=Fork)](https://github.com/Mozartted/InquisteeSocial#fork-destination-box)
 
 > A Social Network Web Application Build of Laravel 5.3
 
@@ -41,9 +37,9 @@ $ composer update
 In the storage directory create an sqlite file called inquistee.sqlite and the run the following command in console
 
 ```php
-    php artisan migrate --path database/migrations/migration_main_set
-		php artisan migrate --path database/migrations/migration_likes
-		php artisan migrate --path database/migrations/migrations_pivot_tables
+    $ php artisan migrate --path database/migrations/migration_main_set
+		$ php artisan migrate --path database/migrations/migration_likes
+		$ php artisan migrate --path database/migrations/migrations_pivot_tables
 ```
 There are 4 sets of migrations namely
 * migration_profile_set - this creates the main tables of the application
@@ -52,7 +48,7 @@ There are 4 sets of migrations namely
 
 After these simply serve via artisan and you are good to go :smile:
 ```php
-	php artisan serve
+$	php artisan serve
 ```
 
 ## Change log
