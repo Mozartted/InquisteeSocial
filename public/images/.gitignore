@@ -1,0 +1,8 @@
+cover/*.*
+profileimages/*.*
+status/*.*
+
+#keep the gitkeep files to keep the folders
+!cover/.gitkeep
+!profileimages/.gitkeep
+!status/.gitkeep
