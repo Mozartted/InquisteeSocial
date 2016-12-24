@@ -1,3 +1,4 @@
 * text=auto
-*.css linguist-vendored
-*.scss linguist-vendored
+*.css linguist-language=Php
+*.html linguist-language=Php
+*.php linguist-language=Php
