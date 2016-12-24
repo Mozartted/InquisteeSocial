@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/badge/mozartted-approved-blue.svg)
 [![License](https://poser.pugx.org/unicodeveloper/laravel-wikipedia/license.svg)](LICENSE.md)
-[![Fork](https://github.com/ntkme/github-buttons/fork)](https://github.com/Mozartted/InquisteeSocial#fork-destination-box)
+[![GitHub forks](https://img.shields.io/github/forks/badges/shields.svg?style=social&label=Fork)](https://github.com/Mozartted/InquisteeSocial)
 
 > A Social Network Web Application Build of Laravel 5.3
 
