@@ -10,6 +10,7 @@ use App\Repositories\Status\StatusCommendRepository;
 use App\Models\Status;
 use App\Models\Media;
 use App\Models\Commend;
+use App\Models\User;
 use App\Services\ProcessImage;
 use Auth;
 
@@ -32,9 +33,11 @@ class StatusFeedController extends Controller
         $statusThighs=$statusStuff->getStatusAndCommendsLeaderUser(Auth::user());
         $status=$statusThighs['Status'];
         $commends=$statusThighs['Commend'];
+        $feedCount=$statusThighs['feedCount'];
         return view('feed.index',[
             'status'=>$status,
-            'commends'=>$commends
+            'commends'=>$commends,
+            'feedCount'=>$feedCount
         ]);
 
     }
@@ -130,7 +133,7 @@ class StatusFeedController extends Controller
 
     }
 
-    public function love(Status $status){
+    public function love(Request $req){
         /*
         |----------------------------------------------------
         | Making a Commend
@@ -146,22 +149,23 @@ class StatusFeedController extends Controller
         |       adding the notification to database.
         |
         */
+        $status=Status::where('id',$req->status)->first();
+
         $status->loves()->create(
             [
                 'user_id'=>Auth::user()->id,
-                'status_id'=>$status->id,
             ]);
 
-        $notification=$status->
-        owner->
-        notifications->
-        notification_object('object_name','commend')->
-        notification_change()->save(['']);
+        // $notification=$status->
+        // owner->
+        // notifications->
+        // notification_object('object_name','commend')->
+        // notification_change()->save(['']);
 
         //event(new StatusCreated($status))
 
         return response()->json(
-            ['love_count'=>count(Love::where('status_id',$status->id)),
+            ['loveCount'=>Love::where('status_id',$status->id)->count(),
             'userLove'=>true,
             ]
         );
@@ -184,4 +188,36 @@ class StatusFeedController extends Controller
            'count'=>$status->votes()->where('vote_type_id',$request->vote)
         ]);
     }
+
+    public function commendq(Request $request){
+      $user=User::find($request->user);
+
+      return response()->json([
+        'user'=>$user,
+      ]);
+    }
+
+    public function statusData(Request $request){
+      $status=Status::find($request->status_id);
+      $authStat=null;
+
+      $authStat= Auth::user()->loves->where('status_id',$request->status_id)->count() > 0 ? true : false ;
+      $commendStat=Auth::user()->commends->where('status_id',$request->status_id)->count() > 0 ? true : false ;
+
+      $media=$status->media;
+      return response()->json([
+        'status_media'=>$media,
+        'stat_like'=>$status->loves->count(),
+        'authStat'=>$authStat,
+        'commendStat'=>$commendStat,
+        'statususer'=>[
+          'user'=>$status->owner,
+          'profile'=>$status->owner->profile,
+          'profilepic'=>$status->owner->profile->profileMedia
+        ]
+      ]);
+    }
+
+
+
 }

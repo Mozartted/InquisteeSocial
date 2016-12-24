@@ -44,9 +44,11 @@ class EloquentStatusCommendRepository implements StatusCommendRepository
         $leaderUserIds[]=$user->id;
         $CommendsCollection=Commend::whereIn('user_id',$leaderUserIds)->get();
         $statusIdFromCommends=$CommendsCollection->pluck('status_id');
-        $StatusCollection=Status::whereIn('user_id',$leaderUserIds)->union(Status::whereIn('id',$statusIdFromCommends))->orderBy('id', 'desc')->take(10)->get();
+        $Status=Status::whereIn('user_id',$leaderUserIds)->union(Status::whereIn('id',$statusIdFromCommends))->orderBy('id', 'desc')->get();
+        $FeedCount=$Status->count();
+        $StatusCollection=$Status->take(10);
 
-        return $all=['Status'=>$StatusCollection,'Commend'=>$CommendsCollection];
+        return $all=['Status'=>$StatusCollection,'Commend'=>$CommendsCollection,'feedCount'=>$FeedCount];
 
     }
 
@@ -70,14 +72,19 @@ class EloquentStatusCommendRepository implements StatusCommendRepository
         // TODO: Implement getStatusAndCommendsLeaderUser() method.
         // gets the status and commends of a particular user and his
         // leaders ordered according to timestamps.
-        $leaderUserIds=$user->leaders->pluck('leaders');
+        // $leaderUserIds=$user->leaders->pluck('leaders');
+        // $leaderUserIds[]=$user->id;
+        // $CommendsCollection=Commend::whereIn('user_id',$leaderUserIds);
+        //
+        // //getting the status id of the commends
+        // $statusIdFromCommends=$CommendsCollection->pluck('status_id');
+        // $StatusCollection=Status::whereIn('user_id',$leaderUserIds)->union(Status::whereIn('status_id',$statusIdFromCommends))->latest()->skip($skipQty)->take(10);
+
+        $leaderUserIds=$user->leaders->pluck('id');
         $leaderUserIds[]=$user->id;
-        $CommendsCollection=Commend::whereIn('user_id',$leaderUserIds);
-
-        //getting the status id of the commends
+        $CommendsCollection=Commend::whereIn('user_id',$leaderUserIds)->get();
         $statusIdFromCommends=$CommendsCollection->pluck('status_id');
-        $StatusCollection=Status::whereIn('user_id',$leaderUserIds)->union(Status::whereIn('status_id',$statusIdFromCommends))->latest()->skip($skipQty)->take(10);
-
+        $StatusCollection=Status::whereIn('user_id',$leaderUserIds)->union(Status::whereIn('id',$statusIdFromCommends))->orderBy('id', 'desc')->skip($skipQty)->take(10)->get();
 
         return [
             'Commends'=>$CommendsCollection,
