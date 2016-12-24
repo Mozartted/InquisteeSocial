@@ -123,10 +123,13 @@ Route::group(['prefix'=>'ajax','middleware'=>'auth'], function(){
     | using a common namespace for all Ajax Operations, json response
     |
     */
-    Route::put('/love/{status}',['as'=>'love_path','uses'=>'StatusFeedController@love']);
+    Route::post('commenduser',['as'=>'commenduser','uses'=>'StatusFeedController@commendq']);
+    Route::post('statusdetails',['as'=>'statdetails','uses'=>'StatusFeedController@statusData']);
+    Route::post('status/love',['as'=>'love_path','uses'=>'StatusFeedController@love']);
     Route::put('/message/{user}',['as'=>'message_path','uses'=>'MessageController@create']);
 
     Route::post('/follow',['as'=>'following','uses'=>'UserController@follow']);
+    Route::post('/feed',['as'=>'ajaxfeed','uses'=>'StatusFeedController@more']);
     Route::put('/interested/{user}',['as'=>'interested','uses'=>'UserController@interested']);
     Route::post('/unfollow',['as'=>'unfollowing','uses'=>'UserController@unfollow']);
     Route::put('/uninterested/{user}',['as'=>'uninterested','uses'=>'UserController@uninterested']);
