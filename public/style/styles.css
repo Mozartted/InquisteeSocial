@@ -464,3 +464,24 @@ body.loading .loadmodal {
 .following-div{
   width: 400px;
 }
+
+#loader{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  text-align:left;
+  opacity:.8;
+  background-color:#FFFFFF
+}
+
+#go-up{
+  position:fixed;
+  margin-top:45%;
+  margin-left:92%;
+  padding:0;
+  z-index:102;
+  display:none
+}
