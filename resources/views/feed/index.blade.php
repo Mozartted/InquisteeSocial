@@ -7,14 +7,16 @@
             <meta name="csrf-token" content="{{ csrf_token()}}">
             <div class="mycontainer">
                 <div class="row">
-                    <div class="col s12 m3 hide-on-small-only">
+                    <div class="col m3 s12  hide-on-small-only">
                         @include('feed.partials.userview')
                     </div>
-                    <div class="col s12 m5">
+                    <div class="col m5 s12 feedsection" data-feedcount="{!! $feedCount !!}">
+
                         @include('feed.partials.feedpost')
+                        <div id="loader"></div>
                         @include('feed.partials.feeds')
                     </div>
-                    <div class="col s4 m3 hide-on-small-only">
+                    <div class="col m3 s4  hide-on-small-only">
                         @include('feed.partials.followcard')
                     </div>
                 </div>

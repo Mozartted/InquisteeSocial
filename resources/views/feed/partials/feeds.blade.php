@@ -2,7 +2,7 @@
     @foreach($status as $stat)
         @if(($commendLeaders=$commends->where('status_id',$stat->id))->count()>0)
 
-          <div class="card sections min-margin" style="margin-top: 10px">
+          <div class="card sections min-margin feed-object" id="feed{!! $stat->id !!}" style="margin-top: 10px">
             <div class="content" style="padding:5px;">
               <small>
               @foreach($commendLeaders as $commender)
@@ -55,9 +55,22 @@
                   <div class="col s5">
                   </div>
                   <div class="col s7">
-                    <div class="col s4 votedown"><i class="material-icons md-18">thumb_up</i></div>
-                      <div class="col s4 voteup"><i class="material-icons md-18">thumb_down</i></div>
+                    @if ($stat->loves->count()>0)
+                      <span id="{{ 'statCount'.$stat->id }}">{{ $stat->loves->count() }}</span>
+                      <!--Like-->
+                    @else
+                      <span id="{{ 'statCount'.$stat->id }}"></span>
+                      <!--Like-->
+                    @endif
+                    @if((Auth::user()->loves->where('status_id',$stat->id))->count()>0)
+                      <div class="col s4 votedown love" data-stat-id="{{ $stat->id }}" data-status="true"><i class="material-icons md-18">thumb_up</i></div>
+                    @else
+                      <div class="col s4 votedown love" data-stat-id="{{ $stat->id }}" data-status="false"><i class="material-icons md-18">thumb_up</i></div>
+                    @endif
+
+
                         @if((Auth::user()->commends->where('status_id',$stat->id))->count()>0)
+
                           <div class="col s4 commend" data-target="commend-section" data-id="{{ $stat->id }}" data-status="true"><i class="material-icons md-18">repeat</i></div>
                         @else
                           <div class="col s4 commend" data-target="commend-section" data-id="{{ $stat->id }}" data-status="false"><i class="material-icons md-18">repeat</i></div>
@@ -69,7 +82,7 @@
         </div>
 
         @else
-          <div class="card sections min-margin" style="margin-top: 10px">
+          <div class="card sections min-margin feed-object" id="feed{!! $stat->id !!}" style="margin-top: 10px">
                   @foreach($stat->media as $media)
                   <div class="card-image">
                       <img class="status-img" src="{{asset($media->url)}}">
@@ -109,8 +122,18 @@
 
                       </div>
                       <div class="col s7">
-                          <div class="col s4 votedown"><i class="material-icons md-18">thumb_up</i></div>
-                          <div class="col s4 voteup"><i class="material-icons md-18">thumb_down</i></div>
+                        @if ($stat->loves->count()>0)
+                          <span id="{{ 'statCount'.$stat->id }}">{{ $stat->loves->count() }}</span>
+                          <!--Like-->
+                        @else
+                          <span id="{{ 'statCount'.$stat->id }}"></span>
+                          <!--Like-->
+                        @endif
+                        @if((Auth::user()->loves->where('status_id',$stat->id))->count()>0)
+                          <div class="col s4 votedown love" data-stat-id="{{ $stat->id }}" data-status="true"><i class="material-icons md-18">thumb_up</i></div>
+                        @else
+                          <div class="col s4 votedown love" data-stat-id="{{ $stat->id }}" data-status="false"><i class="material-icons md-18">thumb_up</i></div>
+                        @endif
 
                           @if((Auth::user()->commends->where('status_id',$stat->id))->count()>0)
                             <div class="col s4 commend" data-target="commend-section" data-id="{{ $stat->id }}" data-status="true"><i class="material-icons md-18">repeat</i></div>

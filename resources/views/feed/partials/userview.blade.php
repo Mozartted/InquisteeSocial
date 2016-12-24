@@ -62,26 +62,23 @@
         </li>
         <li>
             <div class="collapsible-header truncate">
-                <span class="new badge">19</span>Following You
+                <span class="new badge">{{ Auth::user()->followers->count() }}</span>Following You
             </div>
             <div class="collapsible-body">
                 <div class="collection">
-                    <div class="collection-item avatar">
-                        <img src="images/profile/myAvatar.png" class="circle">
-                        <span>@Mozart</span> Followed You
-                    </div>
-                    <div class="collection-item avatar">
-                        <img src="images/profile/myAvatar.png" class="circle">
-                        <span>@Mozart</span> Followed You
-                    </div>
-                    <div class="collection-item avatar">
-                        <img src="images/profile/myAvatar.png" class="circle">
-                        <span>@Mozart</span> Followed You
-                    </div>
-                    <div class="collection-item avatar">
-                        <img src="images/profile/myAvatar.png" class="circle">
-                        <span>@Mozart</span> Followed You
-                    </div>
+                    @if (isset(Auth::user()->followers))
+                      @foreach (Auth::user()->followers as $follower)
+                        <div class="collection-item avatar">
+                          @if (isset($follower->profile->profileMedia->url))
+                            <img src="{{$follower->profile->profileMedia->url}}" class="circle">
+                          @else
+                            <img src="images/profileimages/icon-user-default.png" class="circle">
+                          @endif
+                            <a href="{{ url($follower->username) }}"><span>@ {{ $follower->username }}</span></a> Followed You
+                        </div>
+                      @endforeach
+                    @endif
+
                 </div>
             </div>
         </li>

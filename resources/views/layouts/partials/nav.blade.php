@@ -1,7 +1,7 @@
 <!--The Navigation bar of the app-->
 <ul id="dropdown1" class="dropdown-content">
-    <li><a href="#!">one</a></li>
-    <li><a href="#!">two</a></li>
+    <li><a href="{{ url('message') }}">Messages</a></li>
+    <li><a href="{{ url('settings') }}">Settings</a></li>
     <li class="divider"></li>
     <li><a href="{{url('/logout')}}">Logout</a></li>
 </ul>
