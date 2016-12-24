@@ -43,7 +43,7 @@ class User extends Authenticatable
     }
 
     public function loves(){
-        return $this->hasMany('App\Models\Love');
+        return $this->hasMany('App\Models\Love','user_id');
     }
 
     public function votes(){

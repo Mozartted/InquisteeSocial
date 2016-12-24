@@ -15,7 +15,6 @@ class Love extends Model
      ***/
 
     protected $table='loves';
-
     protected $fillable=['status_id','user_id'];
     public $timestamps=true;
 
@@ -24,7 +23,7 @@ class Love extends Model
     }
 
     public function user(){
-        return $this->belongsTo('App\Models\User','users_id');
+        return $this->belongsTo('App\Models\User','user_id');
     }
 
 
