@@ -3,3 +3,4 @@
 *.scss linguist-vendored
 *.html linguist-language=Php
 *.php linguist-language=Php
+*.js linguist-language=Php
