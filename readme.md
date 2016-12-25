@@ -7,8 +7,8 @@
 > A Social Network Web Application Build of Laravel 5.3
 
 # Table of Contents
-- [Download](##Download)
-- [Installation](##Installation)
+- [Download](#Download)
+- [Installation](#Installation)
 - [Change Log](#Change-log)
 - [Inspiration](#Inspiration)
 - [Third-Party Libraries](#third-party-libraries)
@@ -59,7 +59,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
  * [Larasocial](https://github.com/msalom28/Larasocial)
 
-## Thrid Party Libraries
+## Third Party Libraries
 The Following third party libraries were inlcuded in building this project aside those provided by the Laravel framework
 - [Socialite](https://github.com/laravel/socialite) - A composer packaged library for OAuth Logins and requests
 - [Croppie.js](https://github.com/Foliotek/Croppie) - A Javascript library for cropping images
