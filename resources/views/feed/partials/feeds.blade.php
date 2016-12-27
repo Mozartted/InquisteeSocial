@@ -11,7 +11,7 @@
               </a>
               @endforeach
 
-              commended this post
+              retweeted this post
             </small>
             </div>
             @if(!empty(($stat->commends->whereIn('user_id',Auth::user()->leaders->pluck('id'))->first())->commend ))

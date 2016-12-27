@@ -70,7 +70,7 @@
 
 
 
-            <a href="#" class="brand-logo center">Lovenote</a>
+            <a href="#" class="brand-logo center">InquisteeSocial</a>
 
 
         </div>

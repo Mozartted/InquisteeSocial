@@ -15,51 +15,7 @@
     </div>
 </div>
 <div>
-    <ul class="collapsible " data-collapsible="accordion">
-        <li>
-            <div class="collapsible-header truncate">
-                <span class="new badge">19</span>Answered your relationship question
-            </div>
-            <div class="collapsible-body">
-                <div class="collection-item">
-                    Mozart thinks you are single
-                </div>
-                <div class="collection-item">
-                    Mozart thinks you are single
-                </div>
-                <div class="collection-item">
-                    Mozart thinks you are single
-                </div>
-                <div class="collection-item">
-                    Mozart thinks you are single
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="collapsible-header truncate ">
-                <span class="new badge">19</span>Interested In You
-            </div>
-            <div class="collapsible-body">
-                <div class="collection">
-                    <div class="collection-item avatar">
-                        <img src="images/profile/myAvatar.png" class="circle">
-                            <span>@Mozart</span> interested in you
-                    </div>
-                    <div class="collection-item avatar">
-                        <img src="images/profile/myAvatar.png" class="circle">
-                        <span>@Mozart</span> interested in you
-                    </div>
-                    <div class="collection-item avatar">
-                        <img src="images/profile/myAvatar.png" class="circle">
-                        <span>@Mozart</span> interested in you
-                    </div>
-                    <div class="collection-item avatar">
-                        <img src="images/profile/myAvatar.png" class="circle">
-                        <span>@Mozart</span> interested in you
-                    </div>
-                </div>
-            </div>
-        </li>
+    <ul class="collapsible " data-collapsible="accordion">        
         <li>
             <div class="collapsible-header truncate">
                 <span class="new badge">{{ Auth::user()->followers->count() }}</span>Following You

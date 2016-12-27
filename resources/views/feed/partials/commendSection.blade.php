@@ -1,7 +1,7 @@
 <div class="modal modal-fixed-footer" id="commend-section" style="    height: 35%;">
     <div class="modal-content">
         <div class="card-header">
-            <div>Make a commend</div>
+            <div>Retweet</div>
         </div>
 
         <div class="card-content">
@@ -10,7 +10,7 @@
                     <form>
                       <div class="input-field">
                           <label for="commendMessage">
-                            Commend Message
+                            Retweet Message
                           </label>
                           <textarea id="commendMessage" class="materialize-textarea"></textarea>
                       </div>
