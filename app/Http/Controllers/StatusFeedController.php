@@ -204,7 +204,7 @@ class StatusFeedController extends Controller
       $authStat= Auth::user()->loves->where('status_id',$request->status_id)->count() > 0 ? true : false ;
       $commendStat=Auth::user()->commends->where('status_id',$request->status_id)->count() > 0 ? true : false ;
 
-      $media=$status->media;
+      $media=$status->media->first();
       return response()->json([
         'status_media'=>$media,
         'stat_like'=>$status->loves->count(),

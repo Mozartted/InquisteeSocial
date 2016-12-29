@@ -433,6 +433,110 @@ $('.love').click(function(){
   }
 });
 
+function InfiniteScrioll(element,data){
+  $(element).jscroll(
+    {
+      loadingHtml:data
+    }
+  );
+}
+
+
+//Todo:loading commends to view..
+function commendLoad(data)
+{
+  $('#loader').fadeOut('slow', function() {
+
+    var data1=data;
+
+    var feedsHTML = "";
+
+    var commendPoint="";
+
+    var message="",
+      statusmedia="",
+      stat_like="",
+      authStat="",
+      commendStat=''
+      statususer='';
+
+
+    $.each(data1.status, function(index, status){
+        if ($('#feed'+status.id).length == 0)
+        {
+          for(var i=0; i< data1.commend.length; i++){
+            if(data1.commend[i]['status_id']==status.id){
+              //ie if the status is in commend list
+              //send another ajax request to obtain the user with that id
+              $.ajaxSetup({
+                  headers: {
+                       'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+              $.ajax({
+                url: "ajax/commenduser",
+                data: { 'user' : data1.commend[i]['user_id'],'status_id':status.id},
+                type:'POST',
+                datatype:'json',
+                async: false,
+                success:function(data){
+                  var data2=data;
+                  commendPoint='<small><a href="'+data2.user.username+'">'+data2.user.name+'</a>commended this post</small>';
+                  message='<div class="content" style="padding:5px;"><p class="status-text" style="color:#757575;">'+data1.commend[1]['commend']+'</p></div>';
+                },
+                error:function() {
+                  return alert('something went wrong. Please try again.');
+                }
+              });
+            }else{
+              commendPoint="";
+              message="";
+            }
+
+          }
+
+          //send a request to  obtain status information
+          $.ajaxSetup({
+              headers: {
+                   'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+              }
+          });
+
+          $.ajax({
+            url: "ajax/statusdetails",
+            data: { 'status_id':status.id},
+            type:'POST',
+            datatype:'json',
+            async:false,
+            success:function(data){
+
+              var data3=data;
+              statusmedia=data3.status_media.url;
+              stat_like=data3.stat_like;
+              authStat=data3.authStat;
+              statususer=data3.statususer;
+
+              feedsHTML+=
+              '<div class="card sections min-margin feed-object" id="feed'+status.id+'" style="margin-top: 10px"><div class="content" style="padding:5px;">'+commendPoint+'</div><div class="content" style="padding:5px;"><p class="status-text" style="color:#757575;">'+message+'</p></div><div class="card-image"><img class="status-img" src="'+statusmedia+'"></div><div class="card-content"><div class="margin-min-10"><p class="status-text" style="color:#757575;">'+status.status_text+'</p></div></div><div class="divider"></div><div class="card-content row" style="padding-left:2px;"><div class="col s12 row margin-min-10"><div class="col s2"><img src="'+statususer.profilepic.url+'" class="feed-img-status circle"></div><div class="col s10"><p class="username-text" style="color:#757575;">'+statususer.profile.id+statususer.profile.last_name+'</p><small><a href="'+statususer.user.username+'">'+statususer.user.username+'</a></small><small>'+$.timeago(status.created_at)+'</small></div></div></div><div class="card-action"><div class="col s12"><div class="col s5"></div><div class="col s7"><span id="statCount'+status.id+'">'+stat_like+'</span><div class="col s4 votedown love" data-stat-id="'+status.id+'" data-status="'+authStat+'"><i class="material-icons md-18">thumb_up</i></div><div class="col s4 commend" data-target="commend-section" data-id="'+status.id+'" data-status="'+commendStat+'"><i class="material-icons md-18">repeat</i></div></div></div></div></div>';
+
+            },
+            error:function() {
+              return alert('something went wrong. Please try again.');
+            }
+          })
+
+        }
+
+    });
+
+    $('.feedsection').append(feedsHTML);
+    // InfiniteScrioll('.feedsection',feedsHTML);
+
+  }); //Finish fading out loader
+
+}
+
 
 //infinite scroll features
 
@@ -464,7 +568,8 @@ $('.love').click(function(){
 							url: "ajax/feed",
 							data: { 'skipQty' : skipQty},
               type:'POST',
-              datatype:'json'
+              datatype:'json',
+              async: false
 						})
 						.done(commendLoad)
 						.fail(function() {
@@ -474,112 +579,9 @@ $('.love').click(function(){
 					});	//Finish showing the loader
 
 				}
-				else
-				{
-					return false
-				}
-
 			}//end scrolling
 		});
 
 	}//End Loading new feeds
-
-  function commendLoad(data)
-  {
-    $('#loader').fadeOut('slow', function() {
-
-      var data1=data;
-
-      var feedsHTML = "";
-
-      var commendPoint="";
-
-      var message="",
-        statusmedia="",
-        stat_like="",
-        authStat="",
-        commendStat=''
-        statususer='';
-
-
-      $.each(data1.status, function(index, status){
-
-          if ($('#feed'+status.id).length == 0)
-          {
-            for(var i=0; i< data1.commend.length; i++){
-              if(data1.commend[i]['status_id']==status.id){
-                //ie if the status is in commend list
-                //send another ajax request to obtain the user with that id
-                $.ajaxSetup({
-                    headers: {
-                         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                  url: "ajax/commenduser",
-                  data: { 'user' : data1.commend[i]['user_id'],'status_id':status.id},
-                  type:'POST',
-                  datatype:'json'
-                })
-                .done(function(data){
-
-                  var data2=data;
-                  commendPoint='<small><a href="'+data2.user.username+'">'+data2.user.name+'</a>commended this post</small>';
-                  message='<div class="content" style="padding:5px;"><p class="status-text" style="color:#757575;">'+data1.commend[1]['commend']+'</p></div>';
-                }).fail(function() {
-    							return alert('something went wrong. Please try again.');
-    						});
-
-              }else{
-                commendPoint="";
-                message="";
-              }
-
-            }
-
-            $.ajaxSetup({
-                headers: {
-                     'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-              url: "ajax/statusdetails",
-              data: { 'status_id':status.id},
-              type:'POST',
-              datatype:'json'
-            })
-            .done(function(data){
-
-              var data3=data;
-              statusmedia=data3.status_media.url;
-              stat_like=data3.stat_like;
-              authStat=data3.authStat;
-              statususer=data3.statususer;
-
-              feedsHTML+=
-              '<div class="card sections min-margin feed-object" id="feed'+status.id+'" style="margin-top: 10px"><div class="content" style="padding:5px;">'+commendPoint+'</div><div class="content" style="padding:5px;"><p class="status-text" style="color:#757575;">'+message+'</p></div><div class="card-image"><img class="status-img" src="'+statusmedia+'"></div><div class="card-content"><div class="margin-min-10"><p class="status-text" style="color:#757575;">'+status.status_text+'</p></div></div><div class="divider"></div><div class="card-content row" style="padding-left:2px;"><div class="col s12 row margin-min-10"><div class="col s2"><img src="'+statususer.profilepic+'" class="feed-img-status circle"></div><div class="col s10"><p class="username-text" style="color:#757575;">'+statususer.profile.id+statususer.profile.last_name+'</p><small><a href="'+statususer.user.username+'">'+statususer.user.username+'</a></small><small>'+$.timeago(status.created_at)+'</small></div></div></div><div class="card-action"><div class="col s12"><div class="col s5"></div><div class="col s7"><span id="statCount'+status.id+'">'+stat_like+'</span><div class="col s4 votedown love" data-stat-id="'+status.id+'" data-status="'+authStat+'"><i class="material-icons md-18">thumb_up</i></div><div class="col s4 commend" data-target="commend-section" data-id="'+status.id+'" data-status="'+commendStat+'"><i class="material-icons md-18">repeat</i></div></div></div></div></div>'
-            ;
-
-            }).fail(function() {
-              return alert('something went wrong. Please try again.');
-            });
-
-          }
-          else
-          {
-            return false
-          }
-
-
-      });
-
-      $('.feedsection').append(feedsHTML);
-
-    }); //Finish fading out loader
-
-
-  }
 
 })
