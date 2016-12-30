@@ -33,11 +33,11 @@ class StatusFeedController extends Controller
         $statusThighs=$statusStuff->getStatusAndCommendsLeaderUser(Auth::user());
         $status=$statusThighs['Status'];
         $commends=$statusThighs['Commend'];
-        $feedCount=$statusThighs['feedCount'];
+        // $feedCount=$statusThighs['feedCount'];
         return view('feed.index',[
             'status'=>$status,
             'commends'=>$commends,
-            'feedCount'=>$feedCount
+            // 'feedCount'=>$feedCount
         ]);
 
     }

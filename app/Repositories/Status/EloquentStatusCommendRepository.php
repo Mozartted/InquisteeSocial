@@ -44,11 +44,13 @@ class EloquentStatusCommendRepository implements StatusCommendRepository
         $leaderUserIds[]=$user->id;
         $CommendsCollection=Commend::whereIn('user_id',$leaderUserIds)->get();
         $statusIdFromCommends=$CommendsCollection->pluck('status_id');
-        $Status=Status::whereIn('user_id',$leaderUserIds)->union(Status::whereIn('id',$statusIdFromCommends))->orderBy('id', 'desc')->get();
-        $FeedCount=$Status->count();
-        $StatusCollection=$Status->take(10);
+        $StatusCollection=(Status::whereIn('user_id',$leaderUserIds)->union(Status::whereIn('id',$statusIdFromCommends))->orderBy('id', 'desc'))->simplePaginate(10);
 
-        return $all=['Status'=>$StatusCollection,'Commend'=>$CommendsCollection,'feedCount'=>$FeedCount];
+        // $Status=Status::whereIn('user_id',$leaderUserIds)->union(Status::whereIn('id',$statusIdFromCommends))->orderBy('id', 'desc')->get();
+        // $FeedCount=$Status->count();
+        // $StatusCollection=$Status->take(10);
+
+        return $all=['Status'=>$StatusCollection,'Commend'=>$CommendsCollection];
 
     }
 
@@ -60,7 +62,7 @@ class EloquentStatusCommendRepository implements StatusCommendRepository
         $statusIdFromCommends=$CommendsCollection->pluck('status_id');
         $StatusCollection=Status::where('user_id',$UserIds)->
         union(Status::whereIn('status_id',$statusIdFromCommends))->
-        orderBy('id', 'desc')->take(10)->get();
+        orderBy('id', 'desc')->paginate(10);
 
         return [
           'Status'=>$StatusCollection, 'Commends'=>$CommendsCollection
@@ -84,7 +86,7 @@ class EloquentStatusCommendRepository implements StatusCommendRepository
         $leaderUserIds[]=$user->id;
         $CommendsCollection=Commend::whereIn('user_id',$leaderUserIds)->get();
         $statusIdFromCommends=$CommendsCollection->pluck('status_id');
-        $StatusCollection=Status::whereIn('user_id',$leaderUserIds)->union(Status::whereIn('id',$statusIdFromCommends))->orderBy('id', 'desc')->skip($skipQty)->take(10)->get();
+        $StatusCollection=Status::whereIn('user_id',$leaderUserIds)->union(Status::whereIn('id',$statusIdFromCommends))->orderBy('id', 'desc')->simplePaginate(10);
 
         return [
             'Commends'=>$CommendsCollection,
