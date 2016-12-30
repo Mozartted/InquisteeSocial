@@ -151,4 +151,5 @@
 
 
     @endforeach
+    <a class="jscroll-next" href="{{ $status->nextPageUrl() }}"></a>
 @endif
