@@ -81,7 +81,7 @@ Route::group(['prefix'=>'settings','middleware'=>'auth'],function(){
 | Doing stuff in with messages that does not use JSON response
 |
 */
-Route::get('/message',['as'=>'message_path','middleware'=>'auth','uses'=>'MessageController@index']);
+Route::get('/messages',['as'=>'message_path','middleware'=>'auth','uses'=>'MessageController@index']);
 
 /*
 |--------------------------------------------------------------------------
