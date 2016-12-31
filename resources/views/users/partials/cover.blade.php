@@ -70,7 +70,7 @@
               </div>
 
          </div>
-
+         <div class="card-message-botton"><div class="waves-effect waves-light red btn" data-target="message">Message</div></div>
     </div>
     <div class="card-action" style="overflow:hidden; padding:0px">
         <div class="col s12 nav-extended">

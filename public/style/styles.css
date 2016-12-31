@@ -485,3 +485,11 @@ body.loading .loadmodal {
   z-index:102;
   display:none
 }
+
+.card .card-image .card-message-botton {
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 20px;
+}
