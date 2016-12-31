@@ -128,6 +128,7 @@
       </div>
     </div>
     @include('users.partials.editmodal')
+    @include('users.partials.messagemodal')
     </body>
     @include('layouts.partials.scripts')
 
