@@ -42,38 +42,27 @@ $(document).on({
      selectYears: 15 // Creates a dropdown of 15 years to control year
     });
 
-    $('.carousel').carousel();
-    $('.carousel').carousel('next');
-    $('.carousel').carousel('next', 3); // Move next n times.
-    // Previous slide
-    $('.carousel').carousel('prev');
-    $('.carousel').carousel('prev', 4); // Move prev n times.
-    // Set to nth slide
-    $('.carousel').carousel('set', 4);
-
-
     $('ul.setting_menu').tabs();
 
     //custom tab sectioning for message view
     $('div.tabbed div').click(function(){
 		    var tab_id = $(this).attr('data-tab');
-
 		      $('div.tabbed div').removeClass('active');
-		        $('.tab-content').removeClass('active');
+		      $('.tab-content').removeClass('active');
 
-		          $(this).addClass('active');
-		            $("#"+tab_id).addClass('active');
-
+		      $(this).addClass('active');
+          $("#"+tab_id).addClass('active');
 	  });
 
-	$('.tab').click(function(){
-		$(".alert-danger").hide().html().remove();
-	});
+	  $('.tab').click(function(){
+		 $(".alert-danger").hide().html().remove();
+	  });
 
     $('#postStatus').characterCounter();
 
-    //image cropping script
 
+
+    //image cropping script
 		var $uploadCrop;
 
 		function readFile(input) {
@@ -109,6 +98,45 @@ $(document).on({
             },
 			enableExif: true
 		});
+
+    var $uploadCover;
+
+    $uploadCover = $('#upload-cover').croppie(
+      {
+      viewport:
+      {
+        width: 500,
+        height: 300,
+        type: 'square'
+      },
+      boundary:
+      {
+          width: 600,
+          height: 350
+      },
+      enableExif: true
+      }
+    );
+
+    var $uploadMessageImage;
+
+    $uploadMessageImage=$('#upload-message').croppie(
+      {
+        viewport:
+        {
+          width:0,
+          height:0,
+          type:'square'
+        },
+
+        boundary:
+        {
+          width:50,
+          height:50,
+        },
+        enableExif:true
+      }
+    );
 
 		$('#uploading').on('change', function () { readFile(this.files[0]); });
 		$('.upload-result').on('click', function (ev) {
@@ -320,73 +348,43 @@ $(document).on({
 
 
 //profile edit systems and functionalities
-//updating cover pics
-var $uploadCover;
+//updating cover pic
+  $('#uploadCoverInput').on('change', function () { readFileCover(this.files[0]); });
+  $('.upload-cover').on('click', function (ev)
+  {
+    ev.preventDefault();
+    ev.stopPropagation();
 
-function readFileCover(input) {
-  if (input){
-          var reader = new FileReader();
-
-          reader.onload = function (e) {
-      $('.upload-demo').addClass('ready');
-            $uploadCover.croppie('bind', {
-              url: e.target.result
-            }).then(function(){
-              console.log('jQuery bind complete');
-            });
-
+    $uploadCover.croppie('result', {
+      type: 'canvas',
+      size: 'original'
+    }).then(function (resp) {
+        $.ajaxSetup({
+          headers: {
+         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
           }
-
-          reader.readAsDataURL(input);
       }
-      else {
-        swal("Sorry - you're browser doesn't support the FileReader API");
-    }
-}
-
-$uploadCover = $('#upload-cover').croppie({
-  viewport: {
-    width: 500,
-    height: 300,
-    type: 'square'
-  },
-        boundary: {
-            width: 600,
-            height: 350
-        },
-  enableExif: true
-});
-
-$('#uploadCoverInput').on('change', function () { readFileCover(this.files[0]); });
-$('.upload-cover').on('click', function (ev) {
-  ev.preventDefault();
-  ev.stopPropagation();
-
-  $uploadCover.croppie('result', {
-    type: 'canvas',
-    size: 'original'
-  }).then(function (resp) {
-            $.ajaxSetup({
-                headers: {
-                     'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-                }
-            });
+    );
 
     $.ajax(
-                {
-                url: 'steps-register/coverpic',
-            type: 'POST',
-            data: {'image':resp},
-                dataType:'json',
-          success: function (data) {
-        html = '<li>'+data.message+'</li>';
-        $(".alert-danger").html(html).show();
-                }
-            });
+      {
+        url: 'steps-register/coverpic',
+        type: 'POST',
+        data: {'image':resp},
+        dataType:'json',
+        success: function (data)
+        {
+          html = '<li>'+data.message+'</li>';
+          $(".alert-danger").html(html).show();
+        }
+      }
+    );
   });
 
   //function that changes the tab to the next
 });
+
+$
 
 
 $('.love').click(function(){
