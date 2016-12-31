@@ -62,7 +62,7 @@ class EloquentStatusCommendRepository implements StatusCommendRepository
         $statusIdFromCommends=$CommendsCollection->pluck('status_id');
         $StatusCollection=Status::where('user_id',$UserIds)->
         union(Status::whereIn('status_id',$statusIdFromCommends))->
-        orderBy('id', 'desc')->paginate(10);
+        orderBy('id', 'desc')->simplePaginate(10);
 
         return [
           'Status'=>$StatusCollection, 'Commends'=>$CommendsCollection
