@@ -1,48 +1,9 @@
-@extends('layout.default')
+@extends('layouts.default')
 @section('content')
     @include('messages.partials.style')
     <body>
         <div>
-        <nav class="nav-wrapper">
-
-            <div class="nav-wrapper red darken-1">
-
-                                <ul class="left">
-                                    <li class="nav-notifying">
-                                        <a href="https://twitter.com/">
-
-                                            <span class="text"><i class="material-icons">home</i></span>
-                                        </a>
-                                    </li>
-                                    <li  class="nav-notifying">
-                                        <a href="https://twitter.com/">
-                                            <span class="text"><i class="material-icons">notifications</i></span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-notifying">
-                                        <a href="https://twitter.com/">
-                                            <span class="text"><i class="material-icons">message</i></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="log-section input-field right">
-                                    <div class="log-image row">
-                                        <div class="col s2"><img class="circle" src="images/profile/myAvatar.png"/></div>
-                                        <div class="col s10 center-align"><span>Mozartted</span></div>
-
-                                    </div>
-                                </div>
-                <div class="input-field right">
-                    <input id="search" type="search" required>
-                    <label for="search"><i class="material-icons">search</i></label>
-                    <i class="material-icons">close</i>
-                </div>
-
-                <a href="#" class="brand-logo center">Lovenote</a>
-
-
-            </div>
-      </nav>
+          @include('layouts.partials.nav')
       <div>
           <div class="row">
               <div class="col s12 m3 hide-on-small-only">
@@ -55,41 +16,8 @@
                       </div>
                       <div>
                           <div class="col s12 collection tabbed">
-                              <div class="collection-item avatar" data-tab="tab-1">
-                                  <img src="images/profile/myAvatar.png" alt="" class="circle">
-                                  <span class="title">Mozart</span>
-
-                              </div>
-                              <div class="collection-item avatar active" data-tab="tab-2">
-                                  <img src="images/profile/myAvatar.png" alt="" class="circle">
-                                  <span class="title">Mozart</span>
-
-                              </div>
-                              <div class="collection-item avatar" data-tab="tab-3">
-                                  <img src="images/profile/myAvatar.png" alt="" class="circle">
-                                  <span class="title">Mozart</span>
-
-                              </div>
-                              <div class="collection-item avatar" data-tab="tab-4">
-                                  <img src="images/profile/myAvatar.png" alt="" class="circle">
-                                  <span class="title">Mozart</span>
-
-                              </div>
-                              <div class="collection-item avatar" data-tab="tab-5">
-                                  <img src="images/profile/myAvatar.png" alt="" class="circle">
-                                  <span class="title">Title</span>
-
-                              </div>
-                              <div class="collection-item avatar" data-tab="tab-6">
-                                  <img src="images/profile/myAvatar.png" alt="" class="circle">
-                                  <span class="title">Title</span>
-
-                              </div>
-                              <div class="collection-item avatar" data-tab="tab-7">
-                                  <img src="images/profile/myAvatar.png" alt="" class="circle">
-                                  <span class="title">Title</span>
-
-                              </div>
+                            <!--This section would detail each user accourding to their responder order-->
+                            @include('messages.partials.sidetab')
                           </div>
                       </div>
                   </div>
@@ -109,6 +37,7 @@
                       <div class="row">
                           <div class="input-field col s12">
                               <textarea id="textarea1" class="materialize-textarea"></textarea>
+                              <input type="hidden" class="currentresponder" value="">
                               <label for="textarea1">Chat box type your fill</label>
                           </div>
                       </div>
