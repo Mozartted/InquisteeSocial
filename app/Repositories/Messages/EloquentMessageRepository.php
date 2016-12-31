@@ -44,8 +44,19 @@ class EloquentMessageRepository implements MessageRepository
                 //the receiver is the other person. ie the
                 //idHolder
                 $messagesUser=$AllMessages->where('sender','=',$idHolder)->orWhere('receiver','=',$idHolder)->orderBy('created_at', 'desc');
+
+                /*
+                |--------------------------------------------------------------------------
+                | Message Collection
+                |--------------------------------------------------------------------------
+                |
+                | The message collection essentially contains all the messages of all
+                | users in a set array rig, ie each user responder has a seperate
+                | message detail.
+                |
+                */
                 $messageCollection[]=[
-                    'responder'=>$idHolder,
+                    'responder'=>User::where('id',$idHolder),
                     'messages'=>$messagesUser,
                     'messageCount'=>count($messagesUser->where('sender','=',Auth::user()->id))
                 ];
