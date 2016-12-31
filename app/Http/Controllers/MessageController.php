@@ -22,9 +22,9 @@ class MessageController extends Controller
     public function index(MessageRepository $messageRepository){
         //retrieve all messages between a user
         //and those he's messaged with arranged in order
-        $AllMessages=$messageRepository->getMessagesForUser();
+        $MessageCollection=$messageRepository->getMessagesForUser();
 
-        return view('',['allMessagesAndInfo',$AllMessages]);
+        return view('messages.index',['MessageCollection',$MessageCollection]);
 
     }
 
