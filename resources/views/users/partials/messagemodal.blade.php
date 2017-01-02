@@ -17,14 +17,14 @@
                   <div id="messageView">
 
                   </div>
-                  <input name="pic[]" type="file" value="" />
+                  <input id="messageUpload" name="pic[]" type="file" value="Upload" />
                 </div>
               </form>
           </div>
         </div>
     </div>
     <div class="modal-footer">
-      <a id="status-commend" class="modal-action modal-close waves-effect waves-green btn-flat" data-id="" data-status="">Send</a>
+      <a id="messageUploaded" class="modal-action modal-close waves-effect waves-green btn-flat" data-id="" data-status="">Send</a>
       <a class="modal-action modal-close waves-effect waves-green btn-flat ">Cancel</a>
     </div>
 </div>
