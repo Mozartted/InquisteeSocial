@@ -192,7 +192,7 @@ $( document ).ready(function(){
                   dataType:'json',
     			        success: function (data) {
     				          html = '<li>'+data.message+'</li>';
-    				          $(".alert-danger").html(html).show();
+                      $('.alert-danger').html(html).fadeIn(300).delay(3500).fadeOut(300);
                   }
                 });
 			        });
