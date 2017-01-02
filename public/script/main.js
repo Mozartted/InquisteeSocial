@@ -183,7 +183,7 @@ $( document ).ready(function(){
                 });
 
 				        $.ajax({
-                  url: 'steps-register/pic',
+                  url: '/messages',
     		          type: 'POST',
     		          data: {
                     'image':resp,
