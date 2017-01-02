@@ -82,7 +82,7 @@ Route::group(['prefix'=>'settings','middleware'=>'auth'],function(){
 |
 */
 Route::get('/messages',['as'=>'message_path','middleware'=>'auth','uses'=>'MessageController@index']);
-
+Route::post('/messages',['as'=>'message_path','middleware'=>'auth','uses'=>'MessageCotnroller@create']);
 /*
 |--------------------------------------------------------------------------
 | Notifications View
