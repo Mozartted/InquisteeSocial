@@ -174,6 +174,8 @@ $( document ).ready(function(){
 				type: 'canvas',
 				size: 'original'
 			}).then(function (resp) {
+
+                var messageSend=$('#Message').val();
                 $.ajaxSetup({
                   headers: {
                     'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
@@ -183,7 +185,10 @@ $( document ).ready(function(){
 				        $.ajax({
                   url: 'steps-register/pic',
     		          type: 'POST',
-    		          data: {'image':resp},
+    		          data: {
+                    'image':resp,
+                    'message':messageSend
+                  },
                   dataType:'json',
     			        success: function (data) {
     				          html = '<li>'+data.message+'</li>';
