@@ -1,21 +1,16 @@
 $( document ).ready(function(){
 
-  $body = $("body");
+    //registering event monitors and body functions.
+    $body = $("body");
 
-$(document).on({
-  ajaxStart: function() { $body.addClass("loading");    },
-   ajaxStop: function() { $body.removeClass("loading"); }
-});
-
-    $('.modal').modal(
-
+    $(document).on(
+      {
+        ajaxStart: function() { $body.addClass("loading"); },
+        ajaxStop: function() { $body.removeClass("loading"); }
+      }
     );
 
-    // $('#searchh').autocomplete(
-    //   {
-    //     serviceUrl:'/ajax/search',
-    //   }
-    // );
+    $('.modal').modal();
 
     $(".dropdown-button").dropdown(
         {
@@ -59,19 +54,16 @@ $(document).on({
 	  });
 
     $('#postStatus').characterCounter();
-
-
-
-    //image cropping script
-		var $uploadCrop;
-
-		function readFile(input) {
+    ////////////////////////////////////////////////////////
+    //File reader
+    function readFile(input,class) {
  			if (input){
 	            var reader = new FileReader();
 
 	            reader.onload = function (e) {
 					$('.upload-demo').addClass('ready');
-	            	$uploadCrop.croppie('bind', {
+                //binds the image to definded croppie section
+	            	class.croppie('bind', {
 	            		url: e.target.result
 	            	}).then(function(){
 	            		console.log('jQuery bind complete');
@@ -85,6 +77,12 @@ $(document).on({
 		        swal("Sorry - you're browser doesn't support the FileReader API");
 		    }
 		}
+
+  ///////////////////////////////////////////////////////////
+
+
+    //image cropping script
+		var $uploadCrop;
 
 		$uploadCrop = $('#upload-into').croppie({
 			viewport: {
@@ -120,7 +118,7 @@ $(document).on({
 
     var $uploadMessageImage;
 
-    $uploadMessageImage=$('#upload-message').croppie(
+    $uploadMessageImage=$('#messageView').croppie(
       {
         viewport:
         {
@@ -138,7 +136,7 @@ $(document).on({
       }
     );
 
-		$('#uploading').on('change', function () { readFile(this.files[0]); });
+		$('#uploading').on('change', function () { readFile(this.files[0],$uploadCrop); });
 		$('.upload-result').on('click', function (ev) {
       ev.preventDefault();
       ev.stopPropagation();
@@ -165,9 +163,70 @@ $(document).on({
                     }
                 });
 			});
-
-			//function that changes the tab to the next
 		});
+
+    $('#messageUpload').on('change', function () { readFile(this.files[0],$uploadMessageImage); });
+		$('#messageUploaded').on('click', function (ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+			$uploadMessageImage.croppie('result', {
+				type: 'canvas',
+				size: 'original'
+			}).then(function (resp) {
+                $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                  }
+                });
+
+				        $.ajax({
+                  url: 'steps-register/pic',
+    		          type: 'POST',
+    		          data: {'image':resp},
+                  dataType:'json',
+    			        success: function (data) {
+    				          html = '<li>'+data.message+'</li>';
+    				          $(".alert-danger").html(html).show();
+                  }
+                });
+			        });
+		});
+
+    //updating cover pic
+    $('#uploadCoverInput').on('change', function () { readFileCover(this.files[0],$uploadCover); });
+    $('.upload-cover').on('click', function (ev)
+    {
+      ev.preventDefault();
+      ev.stopPropagation();
+      $uploadCover.croppie('result', {
+        type: 'canvas',
+        size: 'original'
+      }).then(function (resp) {
+          $.ajaxSetup({
+            headers: {
+           'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        }
+      );
+      $.ajax(
+        {
+          url: 'steps-register/coverpic',
+          type: 'POST',
+          data: {'image':resp},
+          dataType:'json',
+          success: function (data)
+          {
+            html = '<li>'+data.message+'</li>';
+            $(".alert-danger").html(html).show();
+          }
+        }
+      );
+    });
+      //function that changes the tab to the next
+  });
+
+
 
       //the click handler for follow button
       $('#follow').on('click',function(){
@@ -348,45 +407,6 @@ $(document).on({
 
 
 //profile edit systems and functionalities
-//updating cover pic
-  $('#uploadCoverInput').on('change', function () { readFileCover(this.files[0]); });
-  $('.upload-cover').on('click', function (ev)
-  {
-    ev.preventDefault();
-    ev.stopPropagation();
-
-    $uploadCover.croppie('result', {
-      type: 'canvas',
-      size: 'original'
-    }).then(function (resp) {
-        $.ajaxSetup({
-          headers: {
-         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-          }
-      }
-    );
-
-    $.ajax(
-      {
-        url: 'steps-register/coverpic',
-        type: 'POST',
-        data: {'image':resp},
-        dataType:'json',
-        success: function (data)
-        {
-          html = '<li>'+data.message+'</li>';
-          $(".alert-danger").html(html).show();
-        }
-      }
-    );
-  });
-
-  //function that changes the tab to the next
-});
-
-$
-
-
 $('.love').click(function(){
   //on clicking the element, the data-status-id is collected and
   //an ajax request is sent to perfoem operations, and the result is
