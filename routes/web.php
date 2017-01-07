@@ -82,7 +82,7 @@ Route::group(['prefix'=>'settings','middleware'=>'auth'],function(){
 |
 */
 Route::get('/messages',['as'=>'message_path','middleware'=>'auth','uses'=>'MessageController@index']);
-Route::post('/messages',['as'=>'message_path','middleware'=>'auth','uses'=>'MessageCotnroller@create']);
+Route::post('/messages/{id}',['as'=>'message_path','middleware'=>'auth','uses'=>'MessageController@create']);
 /*
 |--------------------------------------------------------------------------
 | Notifications View
@@ -91,7 +91,7 @@ Route::post('/messages',['as'=>'message_path','middleware'=>'auth','uses'=>'Mess
 | Returning notifications views
 |
 */
-Route::get('/notifications',['as'=>'notifications_path','middleware'=>'auth','uses'=>'NotificationsController@view']);
+Route::get('/notifications',['as'=>'notifications_path','middleware'=>'auth','uses'=>'NotificationsController@index']);
 
 /*
 |--------------------------------------------------------------------------
