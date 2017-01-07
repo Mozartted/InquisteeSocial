@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mozart
- * Date: 11/4/16
- * Time: 11:14 PM
- */
 
 namespace App\Repositories\Profiles;
 
