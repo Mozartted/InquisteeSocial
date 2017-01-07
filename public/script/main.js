@@ -56,14 +56,14 @@ $( document ).ready(function(){
     $('#postStatus').characterCounter();
     ////////////////////////////////////////////////////////
     //File reader
-    function readFile(input,class) {
+    function readFile(input,elem) {
  			if (input){
 	            var reader = new FileReader();
 
 	            reader.onload = function (e) {
 					$('.upload-demo').addClass('ready');
                 //binds the image to definded croppie section
-	            	class.croppie('bind', {
+	            	elem.croppie('bind', {
 	            		url: e.target.result
 	            	}).then(function(){
 	            		console.log('jQuery bind complete');
@@ -116,25 +116,25 @@ $( document ).ready(function(){
       }
     );
 
-    var $uploadMessageImage;
-
-    $uploadMessageImage=$('#messageView').croppie(
-      {
-        viewport:
-        {
-          width:0,
-          height:0,
-          type:'square'
-        },
-
-        boundary:
-        {
-          width:50,
-          height:50,
-        },
-        enableExif:true
-      }
-    );
+    // var $uploadMessageImage;
+    //
+    // $uploadMessageImage=$('#messageView').croppie(
+    //   {
+    //     viewport:
+    //     {
+    //       width:50,
+    //       height:50,
+    //       type:'square'
+    //     },
+    //
+    //     boundary:
+    //     {
+    //       width:50,
+    //       height:50,
+    //     },
+    //     enableExif:true
+    //   }
+    // );
 
 		$('#uploading').on('change', function () { readFile(this.files[0],$uploadCrop); });
 		$('.upload-result').on('click', function (ev) {
@@ -165,37 +165,42 @@ $( document ).ready(function(){
 			});
 		});
 
-    $('#messageUpload').on('change', function () { readFile(this.files[0],$uploadMessageImage); });
+    // $('#messageUpload').on('change', function () { readFile(this.files[0],$uploadMessageImage); });
 		$('#messageUploaded').on('click', function (ev) {
       ev.preventDefault();
       ev.stopPropagation();
 
-			$uploadMessageImage.croppie('result', {
-				type: 'canvas',
-				size: 'original'
-			}).then(function (resp) {
+      //getting url from hidden modal
+      var userid=$("#useridno").attr('data-id');
 
-                var messageSend=$('#Message').val();
-                $.ajaxSetup({
-                  headers: {
-                    'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-                  }
-                });
+      var url='/messages/'+userid;
 
-				        $.ajax({
-                  url: '/messages',
-    		          type: 'POST',
-    		          data: {
-                    'image':resp,
-                    'message':messageSend
-                  },
-                  dataType:'json',
-    			        success: function (data) {
-    				          html = '<li>'+data.message+'</li>';
-                      $('.alert-danger').html(html).fadeIn(300).delay(3500).fadeOut(300);
-                  }
-                });
-			        });
+      var messageSend=$('#Message').val();
+      $.ajaxSetup({
+          headers: {
+          'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+          }
+      });
+
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data: {
+          'message':messageSend
+        },
+        dataType:'json',
+        success: function (data) {
+            html = '<div>'+data.messagesent+'</div>';
+            $('.alert').html(html).fadeIn(300).delay(3500).fadeOut(300);
+        }
+      });
+
+			// $uploadMessageImage.croppie('result', {
+			// 	type: 'canvas',
+			// 	size: 'original'
+			// }).then(function (resp) {
+      //
+			//         });
 		});
 
     //updating cover pic
