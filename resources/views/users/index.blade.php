@@ -7,6 +7,7 @@
         <div>
             @include('layouts.partials.nav')
       <div class="mycontainer">
+        @include('layouts.partials.alert')
           <div class="row ">
               <div class="col s12 m9">
                     @include('users.partials.cover')
