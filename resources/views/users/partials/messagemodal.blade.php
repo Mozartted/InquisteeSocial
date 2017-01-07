@@ -11,13 +11,8 @@
                     <label for="Message">
                       Send a message to {{ $profile['username'] }}
                     </label>
+                    <input id="useridno" data-id="{{ $profile['id'] }}" type="hidden" val="" />
                     <textarea id="Message" class="materialize-textarea"></textarea>
-                </div>
-                <div>
-                  <div id="messageView">
-
-                  </div>
-                  <input id="messageUpload" name="pic[]" type="file" value="Upload" />
                 </div>
               </form>
           </div>
