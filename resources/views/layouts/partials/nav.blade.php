@@ -5,24 +5,6 @@
     <li class="divider"></li>
     <li><a href="{{url('/logout')}}">Logout</a></li>
 </ul>
-{{-- <div class="col s12 m5 float-search">
-    <div class="card">
-        <div class="card-content">
-            <div class="col s12" style="min-height:72px">
-                <div class="col s12 row margin-min-10 ">
-                    <div class="col s2">
-                        <img src="" class="feed-img-status circle">
-                    </div>
-                    <div class="col s10">
-                        <p class="username-text" style="color:#757575;">Chibuike Osita</p>
-                        <a href=""><small></small></a>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
 
 <nav class="nav-wrapper" style="">
 
