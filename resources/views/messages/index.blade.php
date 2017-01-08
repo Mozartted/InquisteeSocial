@@ -16,7 +16,7 @@
                       </div>
                       <div>
                           <div class="col s12 collection tabbed">
-                            <!--This section would detail each user accourding to their responder order-->
+                            <!--This section would detail each user according to their responder order-->
                             @include('messages.partials.sidetab')
                           </div>
                       </div>
@@ -45,7 +45,7 @@
 
               </div>
               <div class="col s4 m3 hide-on-small-only">
-                  @include('layouts.partials.footer')
+                  @include('messages.partials.followusers')
               </div>
               </div>
 
