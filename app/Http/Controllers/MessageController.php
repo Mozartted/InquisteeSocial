@@ -23,8 +23,9 @@ class MessageController extends Controller
         //retrieve all messages between a user
         //and those he's messaged with arranged in order
         $MessageCollection=$messageRepository->getMessagesForUser();
+        // dd($MessageCollection);
 
-        return view('messages.index',['MessageCollection',$MessageCollection]);
+        return view('messages.index',['MessageCollection'=>$MessageCollection]);
 
     }
 
