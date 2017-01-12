@@ -6,6 +6,7 @@
           @include('layouts.partials.nav')
       <div>
           <div class="row">
+            <meta name="csrf-token" content="{{ csrf_token()}}">
               <div class="col s12 m3 hide-on-small-only">
                   <div class="card sections" style="overflow:hidden">
                       <div class="card-header">
@@ -36,9 +37,12 @@
                   <div class="card-action" style="padding:12px;">
                       <div class="row">
                           <div class="input-field col s12">
-                              <textarea id="textarea1" class="materialize-textarea"></textarea>
-                              <input type="hidden" class="currentresponder" value="">
+                              <textarea id="messageBox" class="materialize-textarea"></textarea>
+                              <input type="hidden" class="currentresponder" value="{{ $recentUser }}" />
                               <label for="textarea1">Chat box type your fill</label>
+                          </div>
+                          <div class="col s12">
+                            <button id="sendMessage" class="white-text red"><span><icon class="material-icons">send</icon>Send</span></button>
                           </div>
                       </div>
                   </div>
@@ -54,5 +58,5 @@
       </div>
     </div>
     </body>
-
+    @include('layouts.partials.scripts')
 @endsection
