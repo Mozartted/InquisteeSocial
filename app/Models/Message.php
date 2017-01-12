@@ -19,7 +19,7 @@ class Message extends Model
 
     public $timestamps=true;
 
-    public function sender(){
+    public function sending(){
         return $this->belongsTo('App\Models\User','sender');
     }
 
