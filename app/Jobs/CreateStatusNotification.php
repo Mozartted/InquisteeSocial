@@ -32,6 +32,7 @@ class CreateStatusNotification implements ShouldQueue
     public function handle()
     {
       $notification=$commended->status->owner->notification;
+      dd($notification);
       $notifyObject=$notification->notification_object->where('object_name','commend')->first();
       $notifyObject->notification_changes->save([
         'verb'=>'commend',
