@@ -12,5 +12,6 @@ use App\Models\User;
 interface MessageRepository
 {
     public function getMessagesForUser();
+    
     public function getMessagesForParticularResponder(User $responder);
 }
