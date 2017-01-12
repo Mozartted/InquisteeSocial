@@ -47,6 +47,10 @@ $( document ).ready(function(){
 
 		      $(this).addClass('active');
           $("#"+tab_id).addClass('active');
+
+          var user=tab_id.substr(4);
+
+          $('.currentresponder').val(user);
 	  });
 
 	  $('.tab').click(function(){
@@ -116,26 +120,6 @@ $( document ).ready(function(){
       }
     );
 
-    // var $uploadMessageImage;
-    //
-    // $uploadMessageImage=$('#messageView').croppie(
-    //   {
-    //     viewport:
-    //     {
-    //       width:50,
-    //       height:50,
-    //       type:'square'
-    //     },
-    //
-    //     boundary:
-    //     {
-    //       width:50,
-    //       height:50,
-    //     },
-    //     enableExif:true
-    //   }
-    // );
-
 		$('#uploading').on('change', function () { readFile(this.files[0],$uploadCrop); });
 		$('.upload-result').on('click', function (ev) {
       ev.preventDefault();
@@ -194,17 +178,43 @@ $( document ).ready(function(){
             $('.alert').html(html).fadeIn(300).delay(3500).fadeOut(300);
         }
       });
-
-			// $uploadMessageImage.croppie('result', {
-			// 	type: 'canvas',
-			// 	size: 'original'
-			// }).then(function (resp) {
-      //
-			//         });
 		});
 
+    $('#sendMessage').on('click',function(ev){
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      //getting url from hidden modal
+      var userid=$(".currentresponder").val();
+
+      var url='/messages/'+userid;
+
+      var messageSend=$('#messageBox').val();
+      $.ajaxSetup({
+          headers: {
+          'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+          }
+      });
+
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data: {
+          'message':messageSend
+        },
+        dataType:'json',
+        success: function (data) {
+            $('#messageBox').val('');
+
+            html = '<div>'+data.messagesent+'</div>';
+            $('.alert').html(html).fadeIn(300).delay(3500).fadeOut(300);
+        }
+      });
+
+    });
+
     //updating cover pic
-    $('#uploadCoverInput').on('change', function () { readFileCover(this.files[0],$uploadCover); });
+    $('#uploadCoverInput').on('change', function () { readFile(this.files[0],$uploadCover); });
     $('.upload-cover').on('click', function (ev)
     {
       ev.preventDefault();
