@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Events\StatusCreated;
 use Illuminate\Http\Request;
 use App\Jobs\CreateStatusJob;
+use App\Jobs\CreateStatusNotification;
 use App\Models\Love;
 use App\Models\Notification_change;
 use App\Repositories\Status\StatusCommendRepository;
@@ -119,6 +120,10 @@ class StatusFeedController extends Controller
         ]);
 
         if($commended->save()){
+          //creating the notification of the post being commended
+          //obtain the user behind the status being commended.
+          dispatch(new CreateStatusNotification($commended));
+
           return response()->json([
             'message'=>'Status was successfully commended',
           ]);
