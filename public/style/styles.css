@@ -45,6 +45,13 @@
     height: 700px;
 }
 
+.alert{
+  display:none;
+  position:absolute;
+  width:600px;
+  z-index:1000;
+}
+
 .cover-row{
     height:200px;
     width:100%
