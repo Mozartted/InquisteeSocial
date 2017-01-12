@@ -7,10 +7,12 @@ use App\Jobs\CreateStatusJob;
 use App\Jobs\CreateStatusNotification;
 use App\Models\Love;
 use App\Models\Notification_change;
+use App\Models\Notification_object;
 use App\Repositories\Status\StatusCommendRepository;
 use App\Models\Status;
 use App\Models\Media;
 use App\Models\Commend;
+use App\Models\Notification;
 use App\Models\User;
 use App\Services\ProcessImage;
 use Auth;
@@ -120,9 +122,42 @@ class StatusFeedController extends Controller
         ]);
 
         if($commended->save()){
-          //creating the notification of the post being commended
-          //obtain the user behind the status being commended.
-          dispatch(new CreateStatusNotification($commended));
+
+          //get notification belonging to user, if non-existent, create one
+          $notification=$commended->status->owner->notification;
+          if(!$notification){
+            //if non-exixstent
+            // $notification=new Notification([
+            //                       'user_id'=>$commended->status->owner->id,
+            //                   ]);
+            //                   $notification->save();
+            $stuff=new Notification(['user_id'=>$commended->status->owner->id]);
+            $stuff->save();
+            $notification=$commended->status->owner->notification;
+
+          }
+          // dd($notification);
+          //get the notification's object corresponding to commend, if non-exixtent create one.
+          $notifyObject = $notification->notification_object->where('object_name','commend')->first();
+          if(!$notifyObject){
+            $notificationObject=new \App\Models\Notification_object(['object_name'=>'commend']);
+            $notification->notification_object()->saveMany([$notificationObject]);
+            $notifyObject =$notification->notification_object->where('object_name','commend')->first();
+
+          }
+
+          //dd($notifyObject);
+          $notifyChange=new Notification_change( [
+              'verb' => 'commended',
+              'actor' => Auth::user()->id,
+              'actionOn' => $commended->status->id
+          ]);
+
+          $notifyObject->notification_changes()->saveMany([
+            $notifyChange
+          ]);
+          //dd($notifyObject);
+          // dispatch(new CreateStatusNotification($commended));
 
           return response()->json([
             'message'=>'Status was successfully commended',
