@@ -24,8 +24,13 @@ class MessageController extends Controller
         //and those he's messaged with arranged in order
         $MessageCollection=$messageRepository->getMessagesForUser();
         // dd($MessageCollection);
+        // dd($MessageCollection['mostRecentUser']);
 
-        return view('messages.index',['MessageCollection'=>$MessageCollection]);
+        return view('messages.index',[
+          'MessageCollection'=>$MessageCollection['messageCollection'],
+          'recentUser'=>$MessageCollection['mostRecentUser'],
+          'resentUser'=>$MessageCollection['mostResentUser']
+        ]);
 
     }
 
