@@ -123,41 +123,8 @@ class StatusFeedController extends Controller
 
         if($commended->save()){
 
-          //get notification belonging to user, if non-existent, create one
-          $notification=$commended->status->owner->notification;
-          if(!$notification){
-            //if non-exixstent
-            // $notification=new Notification([
-            //                       'user_id'=>$commended->status->owner->id,
-            //                   ]);
-            //                   $notification->save();
-            $stuff=new Notification(['user_id'=>$commended->status->owner->id]);
-            $stuff->save();
-            $notification=$commended->status->owner->notification;
-
-          }
-          // dd($notification);
-          //get the notification's object corresponding to commend, if non-exixtent create one.
-          $notifyObject = $notification->notification_object->where('object_name','commend')->first();
-          if(!$notifyObject){
-            $notificationObject=new \App\Models\Notification_object(['object_name'=>'commend']);
-            $notification->notification_object()->saveMany([$notificationObject]);
-            $notifyObject =$notification->notification_object->where('object_name','commend')->first();
-
-          }
-
           //dd($notifyObject);
-          $notifyChange=new Notification_change( [
-              'verb' => 'commended',
-              'actor' => Auth::user()->id,
-              'actionOn' => $commended->status->id
-          ]);
-
-          $notifyObject->notification_changes()->saveMany([
-            $notifyChange
-          ]);
-          //dd($notifyObject);
-          // dispatch(new CreateStatusNotification($commended));
+          $this->dispatch(new CreateStatusNotification($commended));
 
           return response()->json([
             'message'=>'Status was successfully commended',
