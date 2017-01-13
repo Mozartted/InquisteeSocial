@@ -15,6 +15,7 @@ class CreateNotificationObjectsTable extends Migration
         Schema::create('notification_objects', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('notifications_id');
+            $table->integer('object_name')->nullable();
         });
     }
 
