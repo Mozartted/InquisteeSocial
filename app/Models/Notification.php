@@ -1,5 +1,15 @@
 <?php
 
+/*
+|-------------------------------------------------------
+| Notifications
+|-------------------------------------------------------
+| Every notification belongs to a single user and has
+| several notification objects and notification
+| changes.
+|
+*/
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
