@@ -17,6 +17,7 @@ class CreateNotificationChangesTable extends Migration
             $table->integer('notification_objects_id');
             $table->string('verb');
             $table->string('actor');
+            $table->string('actionOn')->nullable();
             $table->timestamps();
         });
     }
